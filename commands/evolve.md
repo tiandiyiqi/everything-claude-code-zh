@@ -1,144 +1,144 @@
 ---
 name: evolve
-description: Cluster related instincts into skills, commands, or agents
+description: 将相关的直觉（Instincts）聚类为技能（Skills）、命令（Commands）或智能体（Agents）
 command: true
 ---
 
-# Evolve Command
+# Evolve 命令
 
-## Implementation
+## 实现 (Implementation)
 
-Run the instinct CLI using the plugin root path:
+使用插件根路径运行直觉（Instinct）命令行界面（CLI）：
 
 ```bash
 python3 "${CLAUDE_PLUGIN_ROOT}/skills/continuous-learning-v2/scripts/instinct-cli.py" evolve [--generate]
 ```
 
-Or if `CLAUDE_PLUGIN_ROOT` is not set (manual installation):
+或者如果未设置 `CLAUDE_PLUGIN_ROOT`（手动安装）：
 
 ```bash
 python3 ~/.claude/skills/continuous-learning-v2/scripts/instinct-cli.py evolve [--generate]
 ```
 
-Analyzes instincts and clusters related ones into higher-level structures:
-- **Commands**: When instincts describe user-invoked actions
-- **Skills**: When instincts describe auto-triggered behaviors
-- **Agents**: When instincts describe complex, multi-step processes
+分析直觉（Instincts）并将相关的直觉聚类为更高级的结构：
+- **命令（Commands）**：当直觉描述用户调用的操作时
+- **技能（Skills）**：当直觉描述自动触发的行为时
+- **智能体（Agents）**：当直觉描述复杂的、多步骤的流程时
 
-## Usage
+## 用法 (Usage)
 
 ```
-/evolve                    # Analyze all instincts and suggest evolutions
-/evolve --domain testing   # Only evolve instincts in testing domain
-/evolve --dry-run          # Show what would be created without creating
-/evolve --threshold 5      # Require 5+ related instincts to cluster
+/evolve                    # 分析所有直觉并建议演进方案
+/evolve --domain testing   # 仅演进测试领域（testing domain）中的直觉
+/evolve --dry-run          # 显示将要创建的内容而不实际创建
+/evolve --threshold 5      # 要求至少有 5 个以上的相关直觉才进行聚类
 ```
 
-## Evolution Rules
+## 演进规则 (Evolution Rules)
 
-### → Command (User-Invoked)
-When instincts describe actions a user would explicitly request:
-- Multiple instincts about "when user asks to..."
-- Instincts with triggers like "when creating a new X"
-- Instincts that follow a repeatable sequence
+### → 命令 (Command)（用户调用）
+当直觉描述用户会明确请求的操作时：
+- 多个关于“当用户要求...”的直觉
+- 带有“当创建新的 X 时”等触发器的直觉
+- 遵循可重复序列的直觉
 
-Example:
+示例：
 - `new-table-step1`: "when adding a database table, create migration"
 - `new-table-step2`: "when adding a database table, update schema"
 - `new-table-step3`: "when adding a database table, regenerate types"
 
-→ Creates: `/new-table` command
+→ 创建：`/new-table` 命令
 
-### → Skill (Auto-Triggered)
-When instincts describe behaviors that should happen automatically:
-- Pattern-matching triggers
-- Error handling responses
-- Code style enforcement
+### → 技能 (Skill)（自动触发）
+当直觉描述应该自动发生的行为时：
+- 模式匹配触发器
+- 错误处理响应
+- 代码风格强制执行
 
-Example:
+示例：
 - `prefer-functional`: "when writing functions, prefer functional style"
 - `use-immutable`: "when modifying state, use immutable patterns"
 - `avoid-classes`: "when designing modules, avoid class-based design"
 
-→ Creates: `functional-patterns` skill
+→ 创建：`functional-patterns` 技能（Skill）
 
-### → Agent (Needs Depth/Isolation)
-When instincts describe complex, multi-step processes that benefit from isolation:
-- Debugging workflows
-- Refactoring sequences
-- Research tasks
+### → 智能体 (Agent)（需要深度/隔离）
+当直觉描述复杂的、多步骤的流程，且受益于隔离环境时：
+- 调试工作流（Workflow）
+- 重构序列
+- 研究任务
 
-Example:
+示例：
 - `debug-step1`: "when debugging, first check logs"
 - `debug-step2`: "when debugging, isolate the failing component"
 - `debug-step3`: "when debugging, create minimal reproduction"
 - `debug-step4`: "when debugging, verify fix with test"
 
-→ Creates: `debugger` agent
+→ 创建：`debugger` 智能体（Agent）
 
-## What to Do
+## 操作步骤 (What to Do)
 
-1. Read all instincts from `~/.claude/homunculus/instincts/`
-2. Group instincts by:
-   - Domain similarity
-   - Trigger pattern overlap
-   - Action sequence relationship
-3. For each cluster of 3+ related instincts:
-   - Determine evolution type (command/skill/agent)
-   - Generate the appropriate file
-   - Save to `~/.claude/homunculus/evolved/{commands,skills,agents}/`
-4. Link evolved structure back to source instincts
+1. 从 `~/.claude/homunculus/instincts/` 读取所有直觉（Instincts）
+2. 按以下维度对直觉进行分组：
+   - 领域（Domain）相似性
+   - 触发模式重合度
+   - 操作序列关联性
+3. 对于每个包含 3 个及以上相关直觉的聚类：
+   - 确定演进类型（命令/技能/智能体）
+   - 生成相应的文件
+   - 保存至 `~/.claude/homunculus/evolved/{commands,skills,agents}/`
+4. 将演进后的结构链接回原始直觉
 
-## Output Format
+## 输出格式 (Output Format)
 
 ```
-🧬 Evolve Analysis
+🧬 演进分析 (Evolve Analysis)
 ==================
 
-Found 3 clusters ready for evolution:
+发现 3 个已准备好演进的聚类：
 
-## Cluster 1: Database Migration Workflow
-Instincts: new-table-migration, update-schema, regenerate-types
-Type: Command
-Confidence: 85% (based on 12 observations)
+## 聚类 1：数据库迁移工作流 (Database Migration Workflow)
+直觉 (Instincts): new-table-migration, update-schema, regenerate-types
+类型: 命令 (Command)
+置信度: 85% (基于 12 次观察)
 
-Would create: /new-table command
-Files:
+将创建: /new-table 命令
+文件:
   - ~/.claude/homunculus/evolved/commands/new-table.md
 
-## Cluster 2: Functional Code Style
-Instincts: prefer-functional, use-immutable, avoid-classes, pure-functions
-Type: Skill
-Confidence: 78% (based on 8 observations)
+## 聚类 2：函数式代码风格 (Functional Code Style)
+直觉 (Instincts): prefer-functional, use-immutable, avoid-classes, pure-functions
+类型: 技能 (Skill)
+置信度: 78% (基于 8 次观察)
 
-Would create: functional-patterns skill
-Files:
+将创建: functional-patterns 技能 (Skill)
+文件:
   - ~/.claude/homunculus/evolved/skills/functional-patterns.md
 
-## Cluster 3: Debugging Process
-Instincts: debug-check-logs, debug-isolate, debug-reproduce, debug-verify
-Type: Agent
-Confidence: 72% (based on 6 observations)
+## 聚类 3：调试流程 (Debugging Process)
+直觉 (Instincts): debug-check-logs, debug-isolate, debug-reproduce, debug-verify
+类型: 智能体 (Agent)
+置信度: 72% (基于 6 次观察)
 
-Would create: debugger agent
-Files:
+将创建: debugger 智能体 (Agent)
+文件:
   - ~/.claude/homunculus/evolved/agents/debugger.md
 
 ---
-Run `/evolve --execute` to create these files.
+运行 `/evolve --execute` 来创建这些文件。
 ```
 
-## Flags
+## 参数标志 (Flags)
 
-- `--execute`: Actually create the evolved structures (default is preview)
-- `--dry-run`: Preview without creating
-- `--domain <name>`: Only evolve instincts in specified domain
-- `--threshold <n>`: Minimum instincts required to form cluster (default: 3)
-- `--type <command|skill|agent>`: Only create specified type
+- `--execute`: 实际创建演进后的结构（默认为预览）
+- `--dry-run`: 预览而不创建
+- `--domain <name>`: 仅演进指定领域（Domain）中的直觉
+- `--threshold <n>`: 形成聚类所需的最小直觉数量（默认值：3）
+- `--type <command|skill|agent>`: 仅创建指定类型
 
-## Generated File Format
+## 生成的文件格式 (Generated File Format)
 
-### Command
+### 命令 (Command)
 ```markdown
 ---
 name: new-table
@@ -150,16 +150,16 @@ evolved_from:
   - regenerate-types
 ---
 
-# New Table Command
+# New Table 命令
 
-[Generated content based on clustered instincts]
+[基于聚类直觉生成的正文内容]
 
-## Steps
+## 步骤
 1. ...
 2. ...
 ```
 
-### Skill
+### 技能 (Skill)
 ```markdown
 ---
 name: functional-patterns
@@ -170,12 +170,12 @@ evolved_from:
   - avoid-classes
 ---
 
-# Functional Patterns Skill
+# Functional Patterns 技能 (Skill)
 
-[Generated content based on clustered instincts]
+[基于聚类直觉生成的正文内容]
 ```
 
-### Agent
+### 智能体 (Agent)
 ```markdown
 ---
 name: debugger
@@ -187,7 +187,7 @@ evolved_from:
   - debug-reproduce
 ---
 
-# Debugger Agent
+# Debugger 智能体 (Agent)
 
-[Generated content based on clustered instincts]
+[基于聚类直觉生成的正文内容]
 ```

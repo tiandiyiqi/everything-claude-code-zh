@@ -7,21 +7,33 @@
 ![Go](https://img.shields.io/badge/-Go-00ADD8?logo=go&logoColor=white)
 ![Markdown](https://img.shields.io/badge/-Markdown-000000?logo=markdown&logoColor=white)
 
-**来自 Anthropic 黑客松冠军的完整 Claude Code 配置集。**
+---
 
-经过 10 个月以上密集日常使用、打造真实产品所淬炼出的生产就绪智能体（Agents）、技能（Skills）、钩子（Hooks）、指令（Commands）、规则（Rules）和 MCP 配置。
+<div align="center">
+
+**🌐 Language / 语言 / 語言**
+
+[**English**](../../README.md) | [简体中文](../../README.zh-CN.md) | [繁體中文](README.md)
+
+</div>
+
+---
+
+**來自 Anthropic 黑客松冠軍的完整 Claude Code 設定集合。**
+
+經過 10 個月以上密集日常使用、打造真實產品所淬煉出的生產就緒代理程式、技能、鉤子、指令、規則和 MCP 設定。
 
 ---
 
 ## 指南
 
-本仓库仅包含原始代码。指南会解释所有内容。
+本儲存庫僅包含原始程式碼。指南會解釋所有內容。
 
 <table>
 <tr>
 <td width="50%">
 <a href="https://x.com/affaanmustafa/status/2012378465664745795">
-<img src="https://github.com/user-attachments/assets/1a471488-59cc-425b-8345-5245c7efbcef" alt="Everything Claude Code 简明指南" />
+<img src="https://github.com/user-attachments/assets/1a471488-59cc-425b-8345-5245c7efbcef" alt="Everything Claude Code 簡明指南" />
 </a>
 </td>
 <td width="50%">
@@ -31,50 +43,90 @@
 </td>
 </tr>
 <tr>
-<td align="center"><b>简明指南</b><br/>配置、基础、理念。<b>请先阅读此指南。</b></td>
-<td align="center"><b>完整指南</b><br/>Token 优化、记忆持久化、评估、并行处理。</td>
+<td align="center"><b>簡明指南</b><br/>設定、基礎、理念。<b>請先閱讀此指南。</b></td>
+<td align="center"><b>完整指南</b><br/>權杖最佳化、記憶持久化、評估、平行處理。</td>
 </tr>
 </table>
 
-| 主题 | 学习内容 |
+| 主題 | 學習內容 |
 |------|----------|
-| Token 优化 | 模型选择、系统提示精简、后台进程 |
-| 记忆持久化 | 自动跨会话（Session）保存/加载上下文的钩子（Hooks） |
-| 持续学习 | 从会话中自动提取模式并转化为可重用技能（Skills） |
-| 验证循环 | 检查点 vs 持续评估、评分器类型、pass@k 指标 |
-| 并行处理 | Git worktrees、串联方法、何时扩展实例 |
-| 子智能体协调 | 上下文问题、渐进式检索模式 |
+| 權杖最佳化 | 模型選擇、系統提示精簡、背景程序 |
+| 記憶持久化 | 自動跨工作階段儲存/載入上下文的鉤子 |
+| 持續學習 | 從工作階段自動擷取模式並轉化為可重用技能 |
+| 驗證迴圈 | 檢查點 vs 持續評估、評分器類型、pass@k 指標 |
+| 平行處理 | Git worktrees、串聯方法、何時擴展實例 |
+| 子代理程式協調 | 上下文問題、漸進式檢索模式 |
 
 ---
 
-## 跨平台支持
+## 🚀 快速開始
 
-此插件现已完整支持 **Windows、macOS 和 Linux**。所有钩子和脚本已使用 Node.js 重写以获得最佳兼容性。
+在 2 分鐘內快速上手：
 
-### 包管理器检测
-
-插件会自动检测您偏好的包管理器（npm、pnpm、yarn 或 bun），优先级如下：
-
-1. **环境变量**：`CLAUDE_PACKAGE_MANAGER`
-2. **项目配置**：`.claude/package-manager.json`
-3. **package.json**：`packageManager` 字段
-4. **锁文件**：从 package-lock.json、yarn.lock、pnpm-lock.yaml 或 bun.lockb 检测
-5. **全局配置**：`~/.claude/package-manager.json`
-6. **备选方案**：第一个可用的包管理器
-
-设置您偏好的包管理器：
+### 第一步：安裝外掛程式
 
 ```bash
-# 通过环境变量
+# 新增市集
+/plugin marketplace add affaan-m/everything-claude-code
+
+# 安裝外掛程式
+/plugin install everything-claude-code@everything-claude-code
+```
+
+### 第二步：安裝規則（必需）
+
+> ⚠️ **重要提示：** Claude Code 外掛程式無法自動分發 `rules`，需要手動安裝：
+
+```bash
+# 首先複製儲存庫
+git clone https://github.com/affaan-m/everything-claude-code.git
+
+# 複製規則（應用於所有專案）
+cp -r everything-claude-code/rules/* ~/.claude/rules/
+```
+
+### 第三步：開始使用
+
+```bash
+# 嘗試一個指令
+/plan "新增使用者認證"
+
+# 查看可用指令
+/plugin list everything-claude-code@everything-claude-code
+```
+
+✨ **完成！** 您現在使用 15+ 代理程式、30+ 技能和 20+ 指令。
+
+---
+
+## 🌐 跨平台支援
+
+此外掛程式現已完整支援 **Windows、macOS 和 Linux**。所有鉤子和腳本已使用 Node.js 重寫以獲得最佳相容性。
+
+### 套件管理器偵測
+
+外掛程式會自動偵測您偏好的套件管理器（npm、pnpm、yarn 或 bun），優先順序如下：
+
+1. **環境變數**：`CLAUDE_PACKAGE_MANAGER`
+2. **專案設定**：`.claude/package-manager.json`
+3. **package.json**：`packageManager` 欄位
+4. **鎖定檔案**：從 package-lock.json、yarn.lock、pnpm-lock.yaml 或 bun.lockb 偵測
+5. **全域設定**：`~/.claude/package-manager.json`
+6. **備援方案**：第一個可用的套件管理器
+
+設定您偏好的套件管理器：
+
+```bash
+# 透過環境變數
 export CLAUDE_PACKAGE_MANAGER=pnpm
 
-# 通过全局配置
+# 透過全域設定
 node scripts/setup-package-manager.js --global pnpm
 
-# 通过项目配置
+# 透過專案設定
 node scripts/setup-package-manager.js --project bun
 
-# 检测当前配置
+# 偵測目前設定
 node scripts/setup-package-manager.js --detect
 ```
 
@@ -82,143 +134,143 @@ node scripts/setup-package-manager.js --detect
 
 ---
 
-## 内容概览
+## 📦 內容概覽
 
-本仓库是一个 **Claude Code 插件** - 可直接安装或手动复制组件。
+本儲存庫是一個 **Claude Code 外掛程式** - 可直接安裝或手動複製元件。
 
 ```
 everything-claude-code/
-|-- .claude-plugin/   # 插件和市场清单
-|   |-- plugin.json         # 插件元数据和组件路径
-|   |-- marketplace.json    # 用于 /plugin marketplace add 的市场目录
+|-- .claude-plugin/   # 外掛程式和市集清單
+|   |-- plugin.json         # 外掛程式中繼資料和元件路徑
+|   |-- marketplace.json    # 用於 /plugin marketplace add 的市集目錄
 |
-|-- agents/           # 用于委派任务的专门子智能体（Agents）
-|   |-- planner.md           # 功能实现规划
-|   |-- architect.md         # 系统设计决策
-|   |-- tdd-guide.md         # 测试驱动开发
-|   |-- code-reviewer.md     # 质量与安全审查
-|   |-- security-reviewer.md # 漏洞分析
+|-- agents/           # 用於委派任務的專門子代理程式
+|   |-- planner.md           # 功能實作規劃
+|   |-- architect.md         # 系統設計決策
+|   |-- tdd-guide.md         # 測試驅動開發
+|   |-- code-reviewer.md     # 品質與安全審查
+|   |-- security-reviewer.md # 弱點分析
 |   |-- build-error-resolver.md
-|   |-- e2e-runner.md        # Playwright E2E 测试
-|   |-- refactor-cleaner.md  # 无用代码清理
-|   |-- doc-updater.md       # 文档同步
-|   |-- go-reviewer.md       # Go 代码审查（新增）
-|   |-- go-build-resolver.md # Go 构建错误解决（新增）
+|   |-- e2e-runner.md        # Playwright E2E 測試
+|   |-- refactor-cleaner.md  # 無用程式碼清理
+|   |-- doc-updater.md       # 文件同步
+|   |-- go-reviewer.md       # Go 程式碼審查（新增）
+|   |-- go-build-resolver.md # Go 建置錯誤解決（新增）
 |
-|-- skills/           # 工作流（Workflow）定义和领域知识
-|   |-- coding-standards/           # 编程语言最佳实践
-|   |-- backend-patterns/           # API、数据库、缓存模式
+|-- skills/           # 工作流程定義和領域知識
+|   |-- coding-standards/           # 程式語言最佳實務
+|   |-- backend-patterns/           # API、資料庫、快取模式
 |   |-- frontend-patterns/          # React、Next.js 模式
-|   |-- continuous-learning/        # 从会话中自动提取模式（完整指南）
-|   |-- continuous-learning-v2/     # 基于本能的学习与信心评分
-|   |-- iterative-retrieval/        # 子代理的渐进式上下文精炼
-|   |-- strategic-compact/          # 手动压缩建议（完整指南）
-|   |-- tdd-workflow/               # TDD 方法论
-|   |-- security-review/            # 安全性检查清单
-|   |-- eval-harness/               # 验证循环评估（完整指南）
-|   |-- verification-loop/          # 持续验证（完整指南）
-|   |-- golang-patterns/            # Go 惯用法和最佳实践（新增）
-|   |-- golang-testing/             # Go 测试模式、TDD、基准测试（新增）
+|   |-- continuous-learning/        # 從工作階段自動擷取模式（完整指南）
+|   |-- continuous-learning-v2/     # 基於本能的學習與信心評分
+|   |-- iterative-retrieval/        # 子代理程式的漸進式上下文精煉
+|   |-- strategic-compact/          # 手動壓縮建議（完整指南）
+|   |-- tdd-workflow/               # TDD 方法論
+|   |-- security-review/            # 安全性檢查清單
+|   |-- eval-harness/               # 驗證迴圈評估（完整指南）
+|   |-- verification-loop/          # 持續驗證（完整指南）
+|   |-- golang-patterns/            # Go 慣用語法和最佳實務（新增）
+|   |-- golang-testing/             # Go 測試模式、TDD、基準測試（新增）
 |
-|-- commands/         # 快速执行的斜杠指令（Commands）
-|   |-- tdd.md              # /tdd - 测试驱动开发
-|   |-- plan.md             # /plan - 实现规划
-|   |-- e2e.md              # /e2e - E2E 测试生成
-|   |-- code-review.md      # /code-review - 质量审查
-|   |-- build-fix.md        # /build-fix - 修复构建错误
-|   |-- refactor-clean.md   # /refactor-clean - 移除无用代码
-|   |-- learn.md            # /learn - 会话中提取模式（完整指南）
-|   |-- checkpoint.md       # /checkpoint - 保存验证状态（完整指南）
-|   |-- verify.md           # /verify - 执行验证循环（完整指南）
-|   |-- setup-pm.md         # /setup-pm - 设置包管理器
-|   |-- go-review.md        # /go-review - Go 代码审查（新增）
-|   |-- go-test.md          # /go-test - Go TDD 工作流（新增）
-|   |-- go-build.md         # /go-build - 修复 Go 构建错误（新增）
+|-- commands/         # 快速執行的斜線指令
+|   |-- tdd.md              # /tdd - 測試驅動開發
+|   |-- plan.md             # /plan - 實作規劃
+|   |-- e2e.md              # /e2e - E2E 測試生成
+|   |-- code-review.md      # /code-review - 品質審查
+|   |-- build-fix.md        # /build-fix - 修復建置錯誤
+|   |-- refactor-clean.md   # /refactor-clean - 移除無用程式碼
+|   |-- learn.md            # /learn - 工作階段中擷取模式（完整指南）
+|   |-- checkpoint.md       # /checkpoint - 儲存驗證狀態（完整指南）
+|   |-- verify.md           # /verify - 執行驗證迴圈（完整指南）
+|   |-- setup-pm.md         # /setup-pm - 設定套件管理器
+|   |-- go-review.md        # /go-review - Go 程式碼審查（新增）
+|   |-- go-test.md          # /go-test - Go TDD 工作流程（新增）
+|   |-- go-build.md         # /go-build - 修復 Go 建置錯誤（新增）
 |
-|-- rules/            # 必须遵守的准则（Rules）（复制到 ~/.claude/rules/）
-|   |-- security.md         # 强制性安全检查
-|   |-- coding-style.md     # 不变性、文件组织
-|   |-- testing.md          # TDD、80% 覆盖率要求
+|-- rules/            # 必須遵守的準則（複製到 ~/.claude/rules/）
+|   |-- security.md         # 強制性安全檢查
+|   |-- coding-style.md     # 不可變性、檔案組織
+|   |-- testing.md          # TDD、80% 覆蓋率要求
 |   |-- git-workflow.md     # 提交格式、PR 流程
-|   |-- agents.md           # 何时委派给子智能体
-|   |-- performance.md      # 模型选择、上下文管理
+|   |-- agents.md           # 何時委派給子代理程式
+|   |-- performance.md      # 模型選擇、上下文管理
 |
-|-- hooks/            # 基于触发器的自动化钩子（Hooks）
-|   |-- hooks.json                # 所有钩子配置（PreToolUse、PostToolUse、Stop 等）
-|   |-- memory-persistence/       # 会话生命周期钩子（完整指南）
-|   |-- strategic-compact/        # 压缩建议（完整指南）
+|-- hooks/            # 基於觸發器的自動化
+|   |-- hooks.json                # 所有鉤子設定（PreToolUse、PostToolUse、Stop 等）
+|   |-- memory-persistence/       # 工作階段生命週期鉤子（完整指南）
+|   |-- strategic-compact/        # 壓縮建議（完整指南）
 |
-|-- scripts/          # 跨平台 Node.js 脚本（新增）
-|   |-- lib/                     # 共享工具
-|   |   |-- utils.js             # 跨平台文件/路径/系统工具
-|   |   |-- package-manager.js   # 包管理器检测与选择
-|   |-- hooks/                   # 钩子实现
-|   |   |-- session-start.js     # 会话开始时加载上下文
-|   |   |-- session-end.js       # 会话结束时保存状态
-|   |   |-- pre-compact.js       # 压缩前状态保存
-|   |   |-- suggest-compact.js   # 策略性压缩建议
-|   |   |-- evaluate-session.js  # 从会话中提取模式
-|   |-- setup-package-manager.js # 交互式包管理器设置
+|-- scripts/          # 跨平台 Node.js 腳本（新增）
+|   |-- lib/                     # 共用工具
+|   |   |-- utils.js             # 跨平台檔案/路徑/系統工具
+|   |   |-- package-manager.js   # 套件管理器偵測與選擇
+|   |-- hooks/                   # 鉤子實作
+|   |   |-- session-start.js     # 工作階段開始時載入上下文
+|   |   |-- session-end.js       # 工作階段結束時儲存狀態
+|   |   |-- pre-compact.js       # 壓縮前狀態儲存
+|   |   |-- suggest-compact.js   # 策略性壓縮建議
+|   |   |-- evaluate-session.js  # 從工作階段擷取模式
+|   |-- setup-package-manager.js # 互動式套件管理器設定
 |
-|-- tests/            # 测试套件（新增）
-|   |-- lib/                     # 库测试
-|   |-- hooks/                   # 钩子测试
-|   |-- run-all.js               # 执行所有测试
+|-- tests/            # 測試套件（新增）
+|   |-- lib/                     # 函式庫測試
+|   |-- hooks/                   # 鉤子測試
+|   |-- run-all.js               # 執行所有測試
 |
-|-- contexts/         # 动态系统提示词（Prompt）注入上下文（完整指南）
-|   |-- dev.md              # 开发模式上下文
-|   |-- review.md           # 代码审查模式上下文
+|-- contexts/         # 動態系統提示注入上下文（完整指南）
+|   |-- dev.md              # 開發模式上下文
+|   |-- review.md           # 程式碼審查模式上下文
 |   |-- research.md         # 研究/探索模式上下文
 |
-|-- examples/         # 示例配置和会话
-|   |-- CLAUDE.md           # 项目级配置示例
-|   |-- user-CLAUDE.md      # 用户级配置示例
+|-- examples/         # 範例設定和工作階段
+|   |-- CLAUDE.md           # 專案層級設定範例
+|   |-- user-CLAUDE.md      # 使用者層級設定範例
 |
-|-- mcp-configs/      # MCP 服务器配置
+|-- mcp-configs/      # MCP 伺服器設定
 |   |-- mcp-servers.json    # GitHub、Supabase、Vercel、Railway 等
 |
-|-- marketplace.json  # 自托管市场配置（用于 /plugin marketplace add）
+|-- marketplace.json  # 自託管市集設定（用於 /plugin marketplace add）
 ```
 
 ---
 
-## 生态系统工具
+## 🛠️ 生態系統工具
 
-### ecc.tools - 技能生成器
+### ecc.tools - 技能建立器
 
-从您的仓库自动生成 Claude Code 技能（Skills）。
+從您的儲存庫自動生成 Claude Code 技能。
 
-[安装 GitHub App](https://github.com/apps/skill-creator) | [ecc.tools](https://ecc.tools)
+[安裝 GitHub App](https://github.com/apps/skill-creator) | [ecc.tools](https://ecc.tools)
 
-分析您的仓库并创建：
-- **SKILL.md 文件** - 可直接用于 Claude Code 的技能
-- **本能集合** - 用于 continuous-learning-v2
-- **模式提取** - 从您的提交历史学习
+分析您的儲存庫並建立：
+- **SKILL.md 檔案** - 可直接用於 Claude Code 的技能
+- **本能集合** - 用於 continuous-learning-v2
+- **模式擷取** - 從您的提交歷史學習
 
 ```bash
-# 安装 GitHub App 后，技能会出现在：
+# 安裝 GitHub App 後，技能會出現在：
 ~/.claude/skills/generated/
 ```
 
-与 `continuous-learning-v2` 技能无缝整合以继承本能。
+與 `continuous-learning-v2` 技能無縫整合以繼承本能。
 
 ---
 
-## 安装
+## 📥 安裝
 
-### 选项 1：以插件（Plugin）安装（推荐）
+### 選項 1：以外掛程式安裝（建議）
 
-使用本仓库最简单的方式 - 安装为 Claude Code 插件：
+使用本儲存庫最簡單的方式 - 安裝為 Claude Code 外掛程式：
 
 ```bash
-# 将此仓库添加为市场
+# 將此儲存庫新增為市集
 /plugin marketplace add affaan-m/everything-claude-code
 
-# 安装插件
+# 安裝外掛程式
 /plugin install everything-claude-code@everything-claude-code
 ```
 
-或直接添加到您的 `~/.claude/settings.json`：
+或直接新增到您的 `~/.claude/settings.json`：
 
 ```json
 {
@@ -236,48 +288,48 @@ everything-claude-code/
 }
 ```
 
-这会让您立即访问所有指令、智能体、技能和钩子。
+這會讓您立即存取所有指令、代理程式、技能和鉤子。
 
 ---
 
-### 选项 2：手动安装
+### 🔧 選項 2：手動安裝
 
-如果您偏好手动控制安装内容：
+如果您偏好手動控制安裝內容：
 
 ```bash
-# 克隆仓库
+# 複製儲存庫
 git clone https://github.com/affaan-m/everything-claude-code.git
 
-# 将智能体复制到您的 Claude 配置
+# 將代理程式複製到您的 Claude 設定
 cp everything-claude-code/agents/*.md ~/.claude/agents/
 
-# 复制规则
+# 複製規則
 cp everything-claude-code/rules/*.md ~/.claude/rules/
 
-# 复制指令
+# 複製指令
 cp everything-claude-code/commands/*.md ~/.claude/commands/
 
-# 复制技能
+# 複製技能
 cp -r everything-claude-code/skills/* ~/.claude/skills/
 ```
 
-#### 将钩子添加到 settings.json
+#### 將鉤子新增到 settings.json
 
-将 `hooks/hooks.json` 中的钩子复制到您的 `~/.claude/settings.json`。
+將 `hooks/hooks.json` 中的鉤子複製到您的 `~/.claude/settings.json`。
 
-#### 配置 MCP
+#### 設定 MCP
 
-将 `mcp-configs/mcp-servers.json` 中所需的 MCP 服务器配置复制到您的 `~/.claude.json`。
+將 `mcp-configs/mcp-servers.json` 中所需的 MCP 伺服器複製到您的 `~/.claude.json`。
 
-**重要：** 将 `YOUR_*_HERE` 占位符替换为您实际的 API 密钥。
+**重要：** 將 `YOUR_*_HERE` 佔位符替換為您實際的 API 金鑰。
 
 ---
 
-## 核心概念
+## 🎯 核心概念
 
-### 智能体（Agents）
+### 代理程式（Agents）
 
-子智能体以有限范围处理委派的任务。示例：
+子代理程式以有限範圍處理委派的任務。範例：
 
 ```markdown
 ---
@@ -292,7 +344,7 @@ You are a senior code reviewer...
 
 ### 技能（Skills）
 
-技能是由指令或智能体调用的工作流定义：
+技能是由指令或代理程式調用的工作流程定義：
 
 ```markdown
 # TDD Workflow
@@ -304,13 +356,13 @@ You are a senior code reviewer...
 5. Verify 80%+ coverage
 ```
 
-### 钩子（Hooks）
+### 鉤子（Hooks）
 
-钩子在工具（Tool）事件时触发。示例 - 警告 console.log：
+鉤子在工具事件時觸發。範例 - 警告 console.log：
 
 ```json
 {
-  "matcher": "tool == \"Edit\" && tool_input.file_path matches \"\\.(ts|tsx|js|jsx)$\"",
+  "matcher": "tool == \"Edit\" && tool_input.file_path matches \"\\\\.(ts|tsx|js|jsx)$\"",
   "hooks": [{
     "type": "command",
     "command": "#!/bin/bash\ngrep -n 'console\\.log' \"$file_path\" && echo '[Hook] Remove console.log' >&2"
@@ -318,28 +370,28 @@ You are a senior code reviewer...
 }
 ```
 
-### 规则（Rules）
+### 規則（Rules）
 
-规则是必须遵守的准则。保持模块化：
+規則是必須遵守的準則。保持模組化：
 
 ```
 ~/.claude/rules/
-  security.md      # 禁止硬编码密钥
-  coding-style.md  # 不变性、文件组织
-  testing.md       # TDD、80% 覆盖率要求
+  security.md      # 禁止寫死密鑰
+  coding-style.md  # 不可變性、檔案限制
+  testing.md       # TDD、覆蓋率要求
 ```
 
 ---
 
-## 执行测试
+## 🧪 執行測試
 
-插件包含完整的测试套件：
+外掛程式包含完整的測試套件：
 
 ```bash
-# 执行所有测试
+# 執行所有測試
 node tests/run-all.js
 
-# 执行个别测试文件
+# 執行個別測試檔案
 node tests/lib/utils.test.js
 node tests/lib/package-manager.test.js
 node tests/hooks/hooks.test.js
@@ -347,78 +399,78 @@ node tests/hooks/hooks.test.js
 
 ---
 
-## 贡献
+## 🤝 貢獻
 
-**欢迎并鼓励贡献。**
+**歡迎並鼓勵貢獻。**
 
-本仓库旨在成为社区资源。如果您有：
-- 实用的智能体或技能
-- 巧妙的钩子
-- 更好的 MCP 配置
-- 改进的规则
+本儲存庫旨在成為社群資源。如果您有：
+- 實用的代理程式或技能
+- 巧妙的鉤子
+- 更好的 MCP 設定
+- 改進的規則
 
-请贡献！详见 [CONTRIBUTING.md](CONTRIBUTING.md) 的指南。
+請貢獻！詳見 [CONTRIBUTING.md](CONTRIBUTING.md) 的指南。
 
-### 贡献想法
+### 貢獻想法
 
-- 特定语言的技能（Python、Rust 模式）- Go 现已包含！
-- 特定框架的配置（Django、Rails、Laravel）
-- DevOps 智能体（Kubernetes、Terraform、AWS）
-- 测试策略（不同框架）
-- 特定领域知识（ML、数据工程、移动开发）
-
----
-
-## 背景
-
-我从实验性推出就开始使用 Claude Code。2025 年 9 月与 [@DRodriguezFX](https://x.com/DRodriguezFX) 一起使用 Claude Code 打造 [zenith.chat](https://zenith.chat)，赢得了 Anthropic x Forum Ventures 黑客松。
-
-这些配置已在多个生产应用程序中经过实战测试。
+- 特定語言的技能（Python、Rust 模式）- Go 現已包含！
+- 特定框架的設定（Django、Rails、Laravel）
+- DevOps 代理程式（Kubernetes、Terraform、AWS）
+- 測試策略（不同框架）
+- 特定領域知識（ML、資料工程、行動開發）
 
 ---
 
-## 重要注意事项
+## 📖 背景
 
-### 上下文窗口管理
+我從實驗性推出就開始使用 Claude Code。2025 年 9 月與 [@DRodriguezFX](https://x.com/DRodriguezFX) 一起使用 Claude Code 打造 [zenith.chat](https://zenith.chat)，贏得了 Anthropic x Forum Ventures 黑客松。
 
-**关键：** 不要同时启用所有 MCP。启用过多工具会让您的 200k 上下文窗口缩减至 70k。
+這些設定已在多個生產應用程式中經過實戰測試。
 
-经验法则：
-- 设置 20-30 个 MCP
-- 每个项目启用少于 10 个
-- 启用的工具少于 80 个
+---
 
-在项目配置中使用 `disabledMcpServers` 来禁用未使用的 MCP。
+## ⚠️ 重要注意事項
 
-### 自定义
+### 上下文視窗管理
 
-这些配置适合我的工作流。您应该：
-1. 从您认同的部分开始
-2. 根据您的技术栈修改
+**關鍵：** 不要同時啟用所有 MCP。啟用過多工具會讓您的 200k 上下文視窗縮減至 70k。
+
+經驗法則：
+- 設定 20-30 個 MCP
+- 每個專案啟用少於 10 個
+- 啟用的工具少於 80 個
+
+在專案設定中使用 `disabledMcpServers` 來停用未使用的 MCP。
+
+### 自訂
+
+這些設定適合我的工作流程。您應該：
+1. 從您認同的部分開始
+2. 根據您的技術堆疊修改
 3. 移除不需要的部分
 4. 添加您自己的模式
 
 ---
 
-## Star 历史
+## 🌟 Star 歷史
 
 [![Star History Chart](https://api.star-history.com/svg?repos=affaan-m/everything-claude-code&type=Date)](https://star-history.com/#affaan-m/everything-claude-code&Date)
 
 ---
 
-## 链接
+## 🔗 連結
 
-- **简明指南（从这里开始）：** [Everything Claude Code 简明指南](https://x.com/affaanmustafa/status/2012378465664745795)
-- **完整指南（进阶）：** [Everything Claude Code 完整指南](https://x.com/affaanmustafa/status/2014040193557471352)
-- **关注：** [@affaanmustafa](https://x.com/affaanmustafa)
+- **簡明指南（從這裡開始）：** [Everything Claude Code 簡明指南](https://x.com/affaanmustafa/status/2012378465664745795)
+- **完整指南（進階）：** [Everything Claude Code 完整指南](https://x.com/affaanmustafa/status/2014040193557471352)
+- **追蹤：** [@affaanmustafa](https://x.com/affaanmustafa)
 - **zenith.chat：** [zenith.chat](https://zenith.chat)
 
 ---
 
-## 授权
+## 📄 授權
 
-MIT - 自由使用、依需求修改、如可能请回馈贡献。
+MIT - 自由使用、依需求修改、如可能請回饋貢獻。
 
 ---
 
-**如果有帮助请为本仓库点赞（Star）。阅读两份指南。打造伟大的作品。**
+**如果有幫助請為本儲存庫加星。閱讀兩份指南。打造偉大的作品。**

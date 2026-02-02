@@ -31,13 +31,15 @@ def main():
     parser.add_argument("--model", default="gemini-3-flash-preview", help="模型名称")
     args = parser.parse_args()
 
-    # 1. 扫描项目中所有的 .md 文件 (排除工作目录本身)
+    # 1. 扫描项目中所有的 .md 文件 (排除工作目录本身及上游中文目录)
     all_md_files = []
     for root, dirs, files in os.walk("."):
-        if any(x in root for x in [WORKDIR, "bak", "node_modules", ".git", "_zh"]):
+        # 排除系统目录、翻译工作区、输出目录以及上游的中文目录 (zh-TW/zh-CN)
+        if any(x in root for x in [WORKDIR, "bak", "node_modules", ".git", "_zh", "zh-TW", "zh-CN"]):
             continue
         for f in files:
-            if f.endswith(".md") and not f.endswith("_zh.md"):
+            # 排除已翻译文件(_zh.md)及上游中文文件(.zh-CN.md等)
+            if f.endswith(".md") and not f.endswith("_zh.md") and "zh-CN" not in f and "zh-TW" not in f:
                 all_md_files.append(os.path.abspath(os.path.join(root, f)))
 
     if not os.path.exists(args.prompt):

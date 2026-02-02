@@ -1,38 +1,38 @@
 ---
 name: instinct-export
-description: Export instincts for sharing with teammates or other projects
+description: 导出直觉（Instincts）以便与团队成员或其他项目共享
 command: /instinct-export
 ---
 
-# Instinct Export Command
+# 直觉导出（Instinct Export）命令
 
-Exports instincts to a shareable format. Perfect for:
-- Sharing with teammates
-- Transferring to a new machine
-- Contributing to project conventions
+将直觉（Instincts）导出为可共享的格式。非常适用于：
+- 与团队成员共享
+- 迁移到新机器
+- 为项目规范（Conventions）贡献内容
 
-## Usage
+## 用法
 
 ```
-/instinct-export                           # Export all personal instincts
-/instinct-export --domain testing          # Export only testing instincts
-/instinct-export --min-confidence 0.7      # Only export high-confidence instincts
+/instinct-export                           # 导出所有个人直觉
+/instinct-export --domain testing          # 仅导出测试相关的直觉
+/instinct-export --min-confidence 0.7      # 仅导出高置信度的直觉
 /instinct-export --output team-instincts.yaml
 ```
 
-## What to Do
+## 执行流程
 
-1. Read instincts from `~/.claude/homunculus/instincts/personal/`
-2. Filter based on flags
-3. Strip sensitive information:
-   - Remove session IDs
-   - Remove file paths (keep only patterns)
-   - Remove timestamps older than "last week"
-4. Generate export file
+1. 从 `~/.claude/homunculus/instincts/personal/` 读取直觉
+2. 根据标志位（Flags）进行过滤
+3. 脱敏处理（剥离敏感信息）：
+   - 移除会话 ID（Session IDs）
+   - 移除文件路径（仅保留模式匹配符 Pattern）
+   - 移除早于“上周”的时间戳
+4. 生成导出文件
 
-## Output Format
+## 输出格式
 
-Creates a YAML file:
+创建一个 YAML 文件：
 
 ```yaml
 # Instincts Export
@@ -67,25 +67,25 @@ instincts:
     observations: 6
 ```
 
-## Privacy Considerations
+## 隐私考量
 
-Exports include:
-- ✅ Trigger patterns
-- ✅ Actions
-- ✅ Confidence scores
-- ✅ Domains
-- ✅ Observation counts
+导出内容包括：
+- ✅ 触发模式（Trigger patterns）
+- ✅ 动作（Actions）
+- ✅ 置信度分数（Confidence scores）
+- ✅ 域（Domains）
+- ✅ 观察次数（Observation counts）
 
-Exports do NOT include:
-- ❌ Actual code snippets
-- ❌ File paths
-- ❌ Session transcripts
-- ❌ Personal identifiers
+导出内容 **不包括**：
+- ❌ 实际代码片段
+- ❌ 文件路径
+- ❌ 会话转录文本
+- ❌ 个人身份标识符
 
-## Flags
+## 标志位（Flags）
 
-- `--domain <name>`: Export only specified domain
-- `--min-confidence <n>`: Minimum confidence threshold (default: 0.3)
-- `--output <file>`: Output file path (default: instincts-export-YYYYMMDD.yaml)
-- `--format <yaml|json|md>`: Output format (default: yaml)
-- `--include-evidence`: Include evidence text (default: excluded)
+- `--domain <name>`: 仅导出指定的域（Domain）
+- `--min-confidence <n>`: 最低置信度阈值（默认值：0.3）
+- `--output <file>`: 输出文件路径（默认值：instincts-export-YYYYMMDD.yaml）
+- `--format <yaml|json|md>`: 输出格式（默认值：yaml）
+- `--include-evidence`: 包含证据文本（默认值：排除）

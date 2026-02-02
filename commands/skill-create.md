@@ -1,59 +1,59 @@
 ---
 name: skill-create
-description: Analyze local git history to extract coding patterns and generate SKILL.md files. Local version of the Skill Creator GitHub App.
+description: 分析本地 Git 历史以提取编码模式并生成 SKILL.md 文件。Skill Creator GitHub App 的本地版本。
 allowed_tools: ["Bash", "Read", "Write", "Grep", "Glob"]
 ---
 
-# /skill-create - Local Skill Generation
+# /skill-create - 本地技能生成（Local Skill Generation）
 
-Analyze your repository's git history to extract coding patterns and generate SKILL.md files that teach Claude your team's practices.
+分析你仓库的 Git 历史记录以提取编码模式，并生成 SKILL.md 文件，以便让 Claude 学习你团队的工程实践。
 
-## Usage
+## 用法（Usage）
 
 ```bash
-/skill-create                    # Analyze current repo
-/skill-create --commits 100      # Analyze last 100 commits
-/skill-create --output ./skills  # Custom output directory
-/skill-create --instincts        # Also generate instincts for continuous-learning-v2
+/skill-create                    # 分析当前仓库
+/skill-create --commits 100      # 分析最近 100 条提交
+/skill-create --output ./skills  # 指定自定义输出目录
+/skill-create --instincts        # 同时为 continuous-learning-v2 生成直觉（instincts）
 ```
 
-## What It Does
+## 功能说明（What It Does）
 
-1. **Parses Git History** - Analyzes commits, file changes, and patterns
-2. **Detects Patterns** - Identifies recurring workflows and conventions
-3. **Generates SKILL.md** - Creates valid Claude Code skill files
-4. **Optionally Creates Instincts** - For the continuous-learning-v2 system
+1. **解析 Git 历史** - 分析提交（commits）、文件变更和模式。
+2. **检测模式** - 识别循环出现的工作流（Workflow）和约定。
+3. **生成 SKILL.md** - 创建有效的 Claude Code 技能（Skill）文件。
+4. **可选生成直觉（Instincts）** - 用于 continuous-learning-v2 系统。
 
-## Analysis Steps
+## 分析步骤（Analysis Steps）
 
-### Step 1: Gather Git Data
+### 第 1 步：收集 Git 数据
 
 ```bash
-# Get recent commits with file changes
+# 获取带有文件变更的近期提交
 git log --oneline -n ${COMMITS:-200} --name-only --pretty=format:"%H|%s|%ad" --date=short
 
-# Get commit frequency by file
+# 获取按文件统计的提交频率
 git log --oneline -n 200 --name-only | grep -v "^$" | grep -v "^[a-f0-9]" | sort | uniq -c | sort -rn | head -20
 
-# Get commit message patterns
+# 获取提交信息模式
 git log --oneline -n 200 | cut -d' ' -f2- | head -50
 ```
 
-### Step 2: Detect Patterns
+### 第 2 步：检测模式
 
-Look for these pattern types:
+寻找以下模式类型：
 
-| Pattern | Detection Method |
+| 模式 (Pattern) | 检测方法 (Detection Method) |
 |---------|-----------------|
-| **Commit conventions** | Regex on commit messages (feat:, fix:, chore:) |
-| **File co-changes** | Files that always change together |
-| **Workflow sequences** | Repeated file change patterns |
-| **Architecture** | Folder structure and naming conventions |
-| **Testing patterns** | Test file locations, naming, coverage |
+| **提交规范 (Commit conventions)** | 对提交信息使用正则匹配 (feat:, fix:, chore:) |
+| **文件关联变更 (File co-changes)** | 总是同时发生变化的文件 |
+| **工作流序列 (Workflow sequences)** | 重复出现的文件变更模式 |
+| **架构 (Architecture)** | 文件夹结构和命名规范 |
+| **测试模式 (Testing patterns)** | 测试文件位置、命名、覆盖率 |
 
-### Step 3: Generate SKILL.md
+### 第 3 步：生成 SKILL.md
 
-Output format:
+输出格式：
 
 ```markdown
 ---
@@ -64,24 +64,24 @@ source: local-git-analysis
 analyzed_commits: {count}
 ---
 
-# {Repo Name} Patterns
+# {Repo Name} 模式
 
-## Commit Conventions
-{detected commit message patterns}
+## 提交规范
+{检测到的提交信息模式}
 
-## Code Architecture
-{detected folder structure and organization}
+## 代码架构
+{检测到的文件夹结构和组织方式}
 
-## Workflows
-{detected repeating file change patterns}
+## 工作流
+{检测到的重复文件变更模式}
 
-## Testing Patterns
-{detected test conventions}
+## 测试模式
+{检测到的测试约定}
 ```
 
-### Step 4: Generate Instincts (if --instincts)
+### 第 4 步：生成直觉 (如果使用了 --instincts)
 
-For continuous-learning-v2 integration:
+用于 continuous-learning-v2 集成：
 
 ```yaml
 ---
@@ -92,19 +92,19 @@ domain: git
 source: local-repo-analysis
 ---
 
-# Use Conventional Commits
+# 使用约定式提交 (Conventional Commits)
 
-## Action
-Prefix commits with: feat:, fix:, chore:, docs:, test:, refactor:
+## 操作 (Action)
+在提交信息前添加前缀：feat:, fix:, chore:, docs:, test:, refactor:
 
-## Evidence
-- Analyzed {n} commits
-- {percentage}% follow conventional commit format
+## 证据 (Evidence)
+- 已分析 {n} 条提交
+- {percentage}% 遵循约定式提交格式
 ```
 
-## Example Output
+## 输出示例
 
-Running `/skill-create` on a TypeScript project might produce:
+在 TypeScript 项目上运行 `/skill-create` 可能会产生：
 
 ```markdown
 ---
@@ -115,60 +115,60 @@ source: local-git-analysis
 analyzed_commits: 150
 ---
 
-# My App Patterns
+# My App 模式
 
-## Commit Conventions
+## 提交规范 (Commit Conventions)
 
-This project uses **conventional commits**:
-- `feat:` - New features
-- `fix:` - Bug fixes
-- `chore:` - Maintenance tasks
-- `docs:` - Documentation updates
+该项目使用 **约定式提交 (conventional commits)**：
+- `feat:` - 新功能
+- `fix:` - 错误修复
+- `chore:` - 维护任务
+- `docs:` - 文档更新
 
-## Code Architecture
+## 代码架构 (Code Architecture)
 
 ```
 src/
-├── components/     # React components (PascalCase.tsx)
-├── hooks/          # Custom hooks (use*.ts)
-├── utils/          # Utility functions
-├── types/          # TypeScript type definitions
-└── services/       # API and external services
+├── components/     # React 组件 (PascalCase.tsx)
+├── hooks/          # 自定义 Hooks (use*.ts)
+├── utils/          # 工具函数
+├── types/          # TypeScript 类型定义
+└── services/       # API 和外部服务
 ```
 
-## Workflows
+## 工作流 (Workflows)
 
-### Adding a New Component
-1. Create `src/components/ComponentName.tsx`
-2. Add tests in `src/components/__tests__/ComponentName.test.tsx`
-3. Export from `src/components/index.ts`
+### 添加新组件
+1. 创建 `src/components/ComponentName.tsx`
+2. 在 `src/components/__tests__/ComponentName.test.tsx` 中添加测试
+3. 从 `src/components/index.ts` 导出
 
-### Database Migration
-1. Modify `src/db/schema.ts`
-2. Run `pnpm db:generate`
-3. Run `pnpm db:migrate`
+### 数据库迁移
+1. 修改 `src/db/schema.ts`
+2. 运行 `pnpm db:generate`
+3. 运行 `pnpm db:migrate`
 
-## Testing Patterns
+## 测试模式 (Testing patterns)
 
-- Test files: `__tests__/` directories or `.test.ts` suffix
-- Coverage target: 80%+
-- Framework: Vitest
+- 测试文件：`__tests__/` 目录或 `.test.ts` 后缀
+- 覆盖率目标：80%+
+- 框架：Vitest
 ```
 
-## GitHub App Integration
+## GitHub App 集成
 
-For advanced features (10k+ commits, team sharing, auto-PRs), use the [Skill Creator GitHub App](https://github.com/apps/skill-creator):
+对于高级功能（1万+ 提交、团队共享、自动 PR），请使用 [Skill Creator GitHub App](https://github.com/apps/skill-creator)：
 
-- Install: [github.com/apps/skill-creator](https://github.com/apps/skill-creator)
-- Comment `/skill-creator analyze` on any issue
-- Receives PR with generated skills
+- 安装：[github.com/apps/skill-creator](https://github.com/apps/skill-creator)
+- 在任何 Issue 上评论 `/skill-creator analyze`
+- 接收包含生成的技能的 PR
 
-## Related Commands
+## 相关命令
 
-- `/instinct-import` - Import generated instincts
-- `/instinct-status` - View learned instincts
-- `/evolve` - Cluster instincts into skills/agents
+- `/instinct-import` - 导入生成的直觉
+- `/instinct-status` - 查看已学习的直觉
+- `/evolve` - 将直觉聚类为技能/智能体
 
 ---
 
-*Part of [Everything Claude Code](https://github.com/affaan-m/everything-claude-code)*
+*属于 [Everything Claude Code](https://github.com/affaan-m/everything-claude-code) 的一部分*
