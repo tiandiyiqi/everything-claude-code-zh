@@ -12,8 +12,8 @@ description: Django 架构模式、使用 DRF 的 REST API 设计、ORM 最佳�
 - 构建 Django Web 应用程序时
 - 设计 Django REST Framework (DRF) API 时
 - 处理 Django ORM 和模型时
-* 设置 Django 项目结构时
-* 实现缓存（Caching）、信号（Signals）、中间件（Middleware）时
+- 设置 Django 项目结构时
+- 实现缓存（Caching）、信号（Signals）、中间件（Middleware）时
 
 ## 项目结构
 
