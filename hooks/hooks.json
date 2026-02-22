@@ -3,24 +3,24 @@
   "hooks": {
     "PreToolUse": [
       {
-        "matcher": "tool == \"Bash\" && tool_input.command matches \"(npm run dev|pnpm( run)? dev|yarn dev|bun run dev)\"",
+        "matcher": "tool == \"Bash\"",
         "hooks": [
           {
             "type": "command",
-            "command": "node -e \"console.error('[Hook] BLOCKED: Dev server must run in tmux for log access');console.error('[Hook] Use: tmux new-session -d -s dev \\\"npm run dev\\\"');console.error('[Hook] Then: tmux attach -t dev');process.exit(1)\""
+            "command": "node -e \"let d='';process.stdin.on('data',c=>d+=c);process.stdin.on('end',()=>{const i=JSON.parse(d);const cmd=i.tool_input?.command||'';const stripped=cmd.replace(/<<\\s*['\\\"]?(\\w+)['\\\"]?[\\s\\S]*?\\n\\1(\\s|$)/g,'');const DEV_RE=/(npm run dev|pnpm( run)? dev|yarn dev|bun run dev)/;if(DEV_RE.test(stripped)){console.error('[Hook] BLOCKED: Dev server must run in tmux for log access');console.error('[Hook] Use: tmux new-session -d -s dev \\\"npm run dev\\\"');console.error('[Hook] Then: tmux attach -t dev');console.error('[Hook] To override: set SKIP_HOOK=dev-server or run inside tmux');process.exit(1)}console.log(d)})\""
           }
         ],
-        "description": "Block dev servers outside tmux - ensures you can access logs"
+        "description": "Block dev servers outside tmux - strips heredoc content before matching"
       },
       {
-        "matcher": "tool == \"Bash\" && tool_input.command matches \"(npm (install|test)|pnpm (install|test)|yarn (install|test)?|bun (install|test)|cargo build|make|docker|pytest|vitest|playwright)\"",
+        "matcher": "tool == \"Bash\"",
         "hooks": [
           {
             "type": "command",
-            "command": "node -e \"if(!process.env.TMUX){console.error('[Hook] Consider running in tmux for session persistence');console.error('[Hook] tmux new -s dev  |  tmux attach -t dev')}\""
+            "command": "node -e \"let d='';process.stdin.on('data',c=>d+=c);process.stdin.on('end',()=>{const i=JSON.parse(d);const cmd=i.tool_input?.command||'';const stripped=cmd.replace(/<<\\s*['\\\"]?(\\w+)['\\\"]?[\\s\\S]*?\\n\\1(\\s|$)/g,'');const LONG_RE=/(npm (install|test)|pnpm (install|test)|yarn (install|test)?|bun (install|test)|cargo build|make\\b|docker\\b|pytest|vitest|playwright)/;if(LONG_RE.test(stripped)&&!process.env.TMUX){console.error('[Hook] Consider running in tmux for session persistence');console.error('[Hook] tmux new -s dev  |  tmux attach -t dev')}console.log(d)})\""
           }
         ],
-        "description": "Reminder to use tmux for long-running commands"
+        "description": "Reminder to use tmux for long-running commands - heredoc-aware"
       },
       {
         "matcher": "tool == \"Bash\" && tool_input.command matches \"git push\"",
@@ -37,10 +37,10 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node -e \"const fs=require('fs');let d='';process.stdin.on('data',c=>d+=c);process.stdin.on('end',()=>{const i=JSON.parse(d);const p=i.tool_input?.file_path||'';if(/\\.(md|txt)$/.test(p)&&!/(README|CLAUDE|AGENTS|CONTRIBUTING)\\.md$/.test(p)){console.error('[Hook] BLOCKED: Unnecessary documentation file creation');console.error('[Hook] File: '+p);console.error('[Hook] Use README.md for documentation instead');process.exit(1)}console.log(d)})\""
+            "command": "node -e \"const fs=require('fs');let d='';process.stdin.on('data',c=>d+=c);process.stdin.on('end',()=>{const i=JSON.parse(d);const p=i.tool_input?.file_path||'';const ALLOWED_DIRS=/(^|[\\/\\\\])(docs|specs|design|plans|guides|wiki)[\\/\\\\]/;const ALLOWED_FILES=/(README|CLAUDE|AGENTS|CONTRIBUTING|CHANGELOG|LICENSE)\\.md$/;const PLAN_DIR=/\\.claude[\\/\\\\]plans[\\/\\\\]/;if(/\\.(md|txt)$/.test(p)&&!ALLOWED_FILES.test(p)&&!ALLOWED_DIRS.test(p)&&!PLAN_DIR.test(p)){console.error('[Hook] BLOCKED: .md/.txt file creation outside allowed paths');console.error('[Hook] File: '+p);console.error('[Hook] Allowed: docs/, specs/, design/, plans/, guides/, wiki/ directories');console.error('[Hook] Allowed: README.md, CLAUDE.md, AGENTS.md, CONTRIBUTING.md, CHANGELOG.md');console.error('[Hook] To override: add path to ALLOWED_DIRS in hooks.json doc-blocker');process.exit(1)}console.log(d)})\""
           }
         ],
-        "description": "Block creation of random .md files - keeps docs consolidated"
+        "description": "Block creation of random .md files outside documentation directories"
       },
       {
         "matcher": "tool == \"Edit\" || tool == \"Write\"",

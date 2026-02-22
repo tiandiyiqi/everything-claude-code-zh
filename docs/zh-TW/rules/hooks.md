@@ -9,22 +9,36 @@
 ## 目前 Hooks（在 ~/.claude/settings.json）
 
 ### PreToolUse
+
 - **tmux 提醒**：建議對長時間執行的指令使用 tmux（npm、pnpm、yarn、cargo 等）
+  - 具備 heredoc 感知：僅檢測實際執行的指令，忽略 heredoc/here-string 中的文字內容
 - **git push 審查**：推送前開啟 Zed 進行審查
 - **文件阻擋器**：阻擋建立不必要的 .md/.txt 檔案
+  - 目錄白名單：`docs/`、`specs/`、`design/`、`plans/`、`guides/`、`wiki/`、`.claude/plans/`
+  - 檔案白名單：README.md、CLAUDE.md、AGENTS.md、CONTRIBUTING.md、CHANGELOG.md
+  - 攔截時提供放行指引（如何修改白名單）
 
 ### PostToolUse
+
 - **PR 建立**：記錄 PR URL 和 GitHub Actions 狀態
 - **Prettier**：編輯後自動格式化 JS/TS 檔案
 - **TypeScript 檢查**：編輯 .ts/.tsx 檔案後執行 tsc
 - **console.log 警告**：警告編輯檔案中的 console.log
 
 ### Stop
+
 - **console.log 稽核**：工作階段結束前檢查所有修改檔案中的 console.log
+
+## Hook 設計原則
+
+1. **heredoc 感知**：Bash Hook 在比對指令前先剝離 heredoc/here-string 內容，避免將文件文字誤判為實際指令
+2. **可操作的攔截訊息**：被攔截時，Hook 會提示具體的放行方式（修改白名單、設定環境變數等）
+3. **目錄級白名單**：文件阻擋器支援目錄級放行，而非僅硬編碼檔案名稱
 
 ## 自動接受權限
 
 謹慎使用：
+
 - 對受信任、定義明確的計畫啟用
 - 對探索性工作停用
 - 絕不使用 dangerously-skip-permissions flag
@@ -33,12 +47,14 @@
 ## TodoWrite 最佳實務
 
 使用 TodoWrite 工具來：
+
 - 追蹤多步驟任務的進度
 - 驗證對指示的理解
 - 啟用即時調整
 - 顯示細粒度實作步驟
 
 待辦清單揭示：
+
 - 順序錯誤的步驟
 - 缺少的項目
 - 多餘的不必要項目
