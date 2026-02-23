@@ -31,6 +31,11 @@ security-reviewer → security-review skill → /verify pre-pr
 /tdd → tdd-workflow → /test-coverage → /verify
 ```
 
+### 我要测试关键用户流程
+```
+e2e-testing skill → /e2e → e2e-runner agent
+```
+
 ### 我要做架构设计
 ```
 interactive-discussion → architect → /plan
@@ -110,7 +115,7 @@ changelog-generator → 生成变更日志 → 更新 CHANGELOG.md → 创建 Gi
 coding-standards · frontend-patterns · backend-patterns · golang-patterns · python-patterns · django-patterns · springboot-patterns · jpa-patterns · java-coding-standards · project-guidelines-example
 
 #### 测试
-tdd-workflow · golang-testing · python-testing · django-tdd · springboot-tdd · eval-harness
+tdd-workflow · e2e-testing · golang-testing · python-testing · django-tdd · springboot-tdd · eval-harness
 
 #### 安全
 security-review · django-security · springboot-security
