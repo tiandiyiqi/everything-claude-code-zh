@@ -1,7 +1,7 @@
 ---
 name: everything-assistant
 description: Everything Claude Code 智能助手。自动分析用户意图，推荐最匹配的 skill/agent/command。当用户表达困惑、开始新任务、或手动调用 /everything 时激活。
-version: "1.0.0"
+version: "1.1.0"
 category: "meta"
 ---
 
@@ -54,7 +54,7 @@ category: "meta"
 | go-reviewer | Go 代码审查，地道 Go 模式 | Go 审查、并发、错误处理 |
 | python-reviewer | Python 代码审查，PEP 8 合规 | Python 审查、mypy、ruff、类型提示 |
 
-### Skills（31 个）
+### Skills（32 个）
 
 #### 开发模式 (Patterns)
 
@@ -76,6 +76,7 @@ category: "meta"
 | Skill | 核心用途 | 触发关键词 |
 |-------|---------|----------|
 | tdd-workflow | 测试驱动开发完整工作流 | 红绿重构、覆盖率 80%、先写测试 |
+| e2e-testing | E2E 测试最佳实践和模式 | 侦察-然后-行动、关键用户流程、Playwright、Agent Browser、测试金字塔 |
 | golang-testing | Go 测试模式、表格驱动测试 | 表格驱动、子测试、基准测试、模糊测试 |
 | python-testing | Python 测试、pytest | Fixtures、参数化、Mock、异步测试 |
 | django-tdd | Django TDD、pytest-django | 工厂、Mock、覆盖率、集成测试 |
@@ -112,6 +113,12 @@ category: "meta"
 | continuous-learning | 会话模式自动提取为技能 | 模式检测、技能提取、学习 |
 | continuous-learning-v2 | 直觉系统、置信度评分、演进 | 直觉、观测、演进、置信度 |
 | continuous-learning-v3 | 统一学习管道、沟通风格学习 | 沟通模式、表达库、学习管道 |
+
+#### 项目初始化 (Project Setup)
+
+| Skill | 核心用途 | 触发关键词 |
+|-------|---------|----------|
+| create-project-rules | 根据项目信息生成项目规则文件 | 创建规则、项目规范、编码标准、初始化 |
 
 #### 规划与检索 (Planning & Retrieval)
 
@@ -197,6 +204,7 @@ category: "meta"
 | 学习、模式提取 | continuous-learning-v2 + /learn | P2 |
 | 讨论、需求、方案 | interactive-discussion | P1 |
 | 部署、CI/CD | verification-loop + /verify | P1 |
+| 项目初始化、创建规则 | create-project-rules + coding-standards | P1 |
 
 #### 第二层：语言/框架匹配
 
