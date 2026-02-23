@@ -153,7 +153,6 @@ category: "meta"
 | /build-fix | 修复构建错误 |
 | /refactor-clean | 冗余代码清理 |
 | /learn | 提取可复用模式 |
-| /learn-style | 学习沟通风格 |
 | /evolve | 将直觉演进为技能/命令/智能体 |
 | /instinct-status | 查看已学习的直觉 |
 | /instinct-export | 导出直觉 |
@@ -194,6 +193,7 @@ category: "meta"
 
 | 用户意图关键词 | 推荐功能 | 优先级 |
 |--------------|---------|-------|
+| 新项目、从零开始、学习项目 | interactive-discussion → create-project-rules → planner | P0 |
 | 新功能、实现、开发 | planner agent + /plan + tdd-workflow | P0 |
 | Bug、修复、报错 | error-diagnostician + tdd-guide + /verify | P0 |
 | 重构、清理、优化 | refactor-cleaner + code-reviewer | P1 |
@@ -229,25 +229,113 @@ category: "meta"
 | 验证通过 | /learn → 提取模式 |
 | 上下文过长 | strategic-compact → 策略性压缩 |
 
+### 特殊场景：新项目创建
+
+当用户表达"创建新项目"、"从零开始"、"学习项目"时，推荐以下工作流：
+
+#### 阶段 1：需求澄清（必选）
+- **interactive-discussion** — 通过选择题方式讨论：
+  - 技术栈选择（前端/后端/全栈）
+  - 功能范围（MVP vs 完整功能）
+  - 学习目标（学习 ECC vs 学习技术栈）
+  - 时间预算
+
+#### 阶段 2：架构确定（必选）
+- 根据讨论结果，推荐对应的 patterns skill：
+  - frontend-patterns（React/Next.js）
+  - backend-patterns（Node.js/Express）
+  - golang-patterns（Go）
+  - django-patterns（Django）
+  - springboot-patterns（Spring Boot）
+
+#### 阶段 3：项目规则（强烈建议）
+- **create-project-rules** — 生成项目规则文件：
+  - 编码标准（coding-standards）
+  - 测试要求（testing）
+  - Git 工作流（git-workflow）
+  - 安全检查（security）
+
+#### 阶段 4：规划实施（必选）
+- **planner agent (/plan)** — 创建实施计划：
+  - 拆解任务阶段
+  - 识别依赖关系
+  - 评估风险
+  - 估算复杂度
+
+#### 阶段 5：测试驱动开发（必选）
+- **tdd-workflow** — 先写测试，再实现：
+  - 单元测试（80%+ 覆盖率）
+  - 集成测试
+  - E2E 测试（关键用户流程）
+
+**推荐输出示例：**
+
+```
+【Everything 推荐】新项目创建工作流
+根据你的需求（学习项目 + 从零开始），建议按以下顺序进行：
+
+**第 1 步：需求澄清**
+- interactive-discussion — 通过选择题讨论技术栈、功能范围、学习目标
+- 为什么：避免后期返工，明确项目边界
+
+**第 2 步：确定架构**
+- 根据讨论结果，我会推荐对应的 patterns skill（如 frontend-patterns）
+- 为什么：学习最佳实践，避免常见陷阱
+
+**第 3 步：创建项目规则**
+- create-project-rules — 生成编码标准、测试要求、Git 工作流
+- 为什么：统一团队规范，提高代码质量
+
+**第 4 步：规划实施**
+- planner agent (/plan) — 创建详细的实施计划
+- 为什么：拆解复杂任务，识别风险
+
+**第 5 步：测试驱动开发**
+- tdd-workflow — 先写测试，再实现
+- 为什么：确保代码质量，80%+ 覆盖率
+
+**快速启动：**
+输入 "开启互动讨论模式" 开始第 1 步
+
+你想从哪一步开始？（如果需求已明确，可以跳过第 1 步）
+```
+
 ### 推荐输出格式
+
+**核心原则：展示 → 推荐 → 等待确认**
 
 ```
 【Everything 推荐】
-根据你的需求，建议使用：
-1. [P0] {功能名} — {一句话理由}
-2. [P1] {功能名} — {一句话理由}
-3. [P2] {功能名} — {一句话理由}（可选）
-快速启动：{最相关的命令}
+根据你的需求（{需求摘要}），我检索到以下可用的 ECC 功能：
+
+**推荐工作流：**
+1. [P0] {功能名} — {为什么推荐}（{简短介绍}）
+2. [P1] {功能名} — {为什么推荐}（{简短介绍}）
+3. [P2] {功能名} — {为什么推荐}（{简短介绍}）（可选）
+
+**快速启动：**
+- {场景 1} → {命令/操作}
+- {场景 2} → {命令/操作}
+
+你想从哪一步开始？
 ```
 
 示例：
 ```
 【Everything 推荐】
-根据你的需求，建议使用：
-1. [P0] planner agent — 任务较复杂，建议先规划
-2. [P1] tdd-workflow skill — 新功能应先写测试
-3. [P2] interactive-discussion — 需求不明确时可先讨论
-快速启动：/plan
+根据你的需求（学习项目 + 从零开始 + 可视化时钟），我检索到以下可用的 ECC 功能：
+
+**推荐工作流：**
+1. [P0] interactive-discussion — 先澄清需求细节（通过选择题方式讨论技术栈、功能范围、学习目标）
+2. [P1] create-project-rules — 确定架构后生成项目规则（编码标准、测试要求、Git 工作流）
+3. [P1] planner agent (/plan) — 创建详细的实施计划（拆解任务、评估风险、估算复杂度）
+4. [P1] tdd-workflow — 测试驱动开发（先写测试，确保 80%+ 覆盖率）
+
+**快速启动：**
+- 如果你想先讨论需求细节 → 输入 "开启互动讨论模式"
+- 如果需求已明确，直接规划 → 输入 "/plan"
+
+你想从哪一步开始？
 ```
 
 ---
