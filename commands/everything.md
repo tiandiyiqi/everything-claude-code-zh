@@ -31,7 +31,7 @@ description: 分析当前上下文，推荐最匹配的 Everything Claude Code �
 读取 `skills/everything-assistant/CATALOG.md`，按类型输出所有功能的精简列表：
 - Agents（14 个）
 - Skills（31 个，按领域分组）
-- Commands（26 个）
+- Commands（28 个）
 - Rules（8 个）
 
 ### `search <关键词>` 子命令

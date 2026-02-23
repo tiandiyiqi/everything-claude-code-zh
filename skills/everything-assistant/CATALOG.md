@@ -125,10 +125,12 @@ file-memory · iterative-retrieval · strategic-compact
 #### 讨论
 interactive-discussion
 
-### Commands（26 个）
+### Commands（28 个）
 
 | 命令 | 用途 |
 |------|------|
+| /everything | 智能功能推荐 |
+| /fireworks-tutorial | 烟花项目新手教程 |
 | /plan | 创建实施计划 |
 | /tdd | TDD 工作流 |
 | /code-review | 代码审查 |

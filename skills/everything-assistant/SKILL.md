@@ -127,7 +127,7 @@ category: "meta"
 |-------|---------|----------|
 | interactive-discussion | 互动讨论模式、选择题方式 | 需求讨论、方案细化、多维分析 |
 
-### Commands（26 个）
+### Commands（28 个）
 
 | Command | 用途 |
 |---------|------|
