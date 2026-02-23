@@ -69,10 +69,10 @@
 
 ```bash
 # 添加市场
-/plugin marketplace add affaan-m/everything-claude-code
+/plugin marketplace add tiandiyiqi/everything-claude-code-zh
 
 # 安装插件
-/plugin install everything-claude-code@everything-claude-code
+/plugin install everything-claude-code-zh@everything-claude-code-zh
 ```
 
 ### 第二步：安装规则（必选）
@@ -81,10 +81,10 @@
 
 ```bash
 # 首先克隆仓库
-git clone https://github.com/affaan-m/everything-claude-code.git
+git clone https://github.com/tiandiyiqi/everything-claude-code-zh.git
 
 # 复制规则（适用于所有项目）
-cp -r everything-claude-code/rules/* ~/.claude/rules/
+cp -r everything-claude-code-zh/rules/* ~/.claude/rules/
 ```
 
 ### 第三步：开始使用
@@ -94,7 +94,7 @@ cp -r everything-claude-code/rules/* ~/.claude/rules/
 /plan "Add user authentication"
 
 # 查看可用命令
-/plugin list everything-claude-code@everything-claude-code
+/plugin list everything-claude-code-zh@everything-claude-code-zh
 ```
 
 ✨ **大功告成！** 你现在可以使用 15+ 个智能体、30+ 个技能和 20+ 个命令了。

@@ -67,10 +67,10 @@
 
 ```bash
 # 添加市场
-/plugin marketplace add affaan-m/everything-claude-code
+/plugin marketplace add tiandiyiqi/everything-claude-code-zh
 
 # 安装插件
-/plugin install everything-claude-code@everything-claude-code
+/plugin install everything-claude-code-zh@everything-claude-code-zh
 ```
 
 ### 第二步：安装规则（必需）
@@ -79,10 +79,10 @@
 
 ```bash
 # 首先克隆仓库
-git clone https://github.com/affaan-m/everything-claude-code.git
+git clone https://github.com/tiandiyiqi/everything-claude-code-zh.git
 
 # 复制规则（应用于所有项目）
-cp -r everything-claude-code/rules/* ~/.claude/rules/
+cp -r everything-claude-code-zh/rules/* ~/.claude/rules/
 ```
 
 ### 第三步：开始使用
@@ -92,7 +92,7 @@ cp -r everything-claude-code/rules/* ~/.claude/rules/
 /plan "添加用户认证"
 
 # 查看可用命令
-/plugin list everything-claude-code@everything-claude-code
+/plugin list everything-claude-code-zh@everything-claude-code-zh
 ```
 
 ✨ **完成！** 你现在可以使用 15+ 代理、30+ 技能和 20+ 命令。

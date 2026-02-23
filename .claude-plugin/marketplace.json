@@ -1,22 +1,22 @@
 {
-  "name": "everything-claude-code",
+  "name": "everything-claude-code-zh",
   "owner": {
-    "name": "Affaan Mustafa",
-    "email": "affaan@example.com"
+    "name": "tiandiyiqi",
+    "email": "tiandiyiqi@example.com"
   },
   "metadata": {
-    "description": "Battle-tested Claude Code configurations from an Anthropic hackathon winner"
+    "description": "Everything Claude Code 中文版 - 来自 Anthropic 黑客马拉松获胜者的实战配置"
   },
   "plugins": [
     {
-      "name": "everything-claude-code",
+      "name": "everything-claude-code-zh",
       "source": "./",
-      "description": "Complete collection of agents, skills, hooks, commands, and rules evolved over 10+ months of intensive daily use",
+      "description": "完整的 agents、skills、hooks、commands 和 rules 集合，经过 10+ 个月实战打磨的中文版",
       "author": {
-        "name": "Affaan Mustafa"
+        "name": "tiandiyiqi"
       },
-      "homepage": "https://github.com/affaan-m/everything-claude-code",
-      "repository": "https://github.com/affaan-m/everything-claude-code",
+      "homepage": "https://github.com/tiandiyiqi/everything-claude-code-zh",
+      "repository": "https://github.com/tiandiyiqi/everything-claude-code-zh",
       "license": "MIT",
       "keywords": [
         "agents",

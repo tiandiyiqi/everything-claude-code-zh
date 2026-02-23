@@ -1,13 +1,13 @@
 {
-  "name": "everything-claude-code",
+  "name": "everything-claude-code-zh",
   "version": "1.3.0",
-  "description": "Complete collection of battle-tested Claude Code configs from an Anthropic hackathon winner - agents, skills, hooks, and rules evolved over 10+ months of intensive daily use",
+  "description": "Everything Claude Code 中文版 - 来自 Anthropic 黑客马拉松获胜者的完整 Claude Code 配置集合（agents、skills、hooks、rules），经过 10+ 个月实战打磨",
   "author": {
-    "name": "Affaan Mustafa",
-    "url": "https://x.com/affaanmustafa"
+    "name": "tiandiyiqi",
+    "url": "https://github.com/tiandiyiqi"
   },
-  "homepage": "https://github.com/affaan-m/everything-claude-code",
-  "repository": "https://github.com/affaan-m/everything-claude-code",
+  "homepage": "https://github.com/tiandiyiqi/everything-claude-code-zh",
+  "repository": "https://github.com/tiandiyiqi/everything-claude-code-zh",
   "license": "MIT",
   "keywords": [
     "claude-code",
