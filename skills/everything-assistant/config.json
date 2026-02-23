@@ -1,0 +1,19 @@
+{
+  "version": "1.0.0",
+  "recommendation": {
+    "enabled": true,
+    "auto_suggest": true,
+    "max_suggestions": 3,
+    "min_confidence": 0.5
+  },
+  "continuous_learning": {
+    "read_instincts": true,
+    "instincts_path": "~/.claude/homunculus/instincts/personal/",
+    "min_instinct_confidence": 0.5,
+    "weight_boost": 0.2
+  },
+  "tutorial": {
+    "project_name": "claude-fireworks",
+    "tech_stack": ["html", "css", "javascript", "canvas"]
+  }
+}
