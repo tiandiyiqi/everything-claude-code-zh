@@ -192,6 +192,111 @@ jest.mock('@/lib/openai', () => ({
 }))
 ```
 
+## 测试用例设计方法论 (Test Case Design Methodology)
+
+在进入 RED 阶段编写测试之前，先运用以下方法论系统化设计测试用例，确保覆盖全面。
+
+### 测试金字塔比例 (Test Pyramid)
+- **70% 单元测试**：快速、独立、大量覆盖函数和方法
+- **20% 集成测试**：验证组件间协作、API 接口、数据库操作
+- **10% E2E 测试**：覆盖核心用户场景和关键业务流程
+
+### 1. 等价类划分法 (Equivalence Partitioning)
+将输入数据划分为有效和无效等价类，每类取一个代表值：
+
+```typescript
+// 示例：验证年龄输入（有效范围 0-150）
+describe('validateAge', () => {
+  // 有效等价类
+  it('accepts valid age within range', () => {
+    expect(validateAge(25)).toBe(true)   // 正常值
+  })
+
+  // 无效等价类
+  it('rejects negative age', () => {
+    expect(validateAge(-1)).toBe(false)  // 负数
+  })
+  it('rejects age over maximum', () => {
+    expect(validateAge(151)).toBe(false) // 超上限
+  })
+  it('rejects non-numeric input', () => {
+    expect(validateAge('abc')).toBe(false) // 非数字
+  })
+
+  // 边界值
+  it('accepts minimum age', () => {
+    expect(validateAge(0)).toBe(true)    // 下界
+  })
+  it('accepts maximum age', () => {
+    expect(validateAge(150)).toBe(true)  // 上界
+  })
+})
+```
+
+### 2. 因果图法 (Cause-Effect Graphing)
+分析输入条件的组合对输出结果的影响：
+
+```typescript
+// 示例：折扣计算（会员 + 订单金额 → 折扣率）
+describe('calculateDiscount', () => {
+  it('VIP + high amount = 20% off', () => {
+    expect(calculateDiscount({ isVip: true, amount: 1000 })).toBe(0.2)
+  })
+  it('VIP + low amount = 10% off', () => {
+    expect(calculateDiscount({ isVip: true, amount: 50 })).toBe(0.1)
+  })
+  it('regular + high amount = 5% off', () => {
+    expect(calculateDiscount({ isVip: false, amount: 1000 })).toBe(0.05)
+  })
+  it('regular + low amount = no discount', () => {
+    expect(calculateDiscount({ isVip: false, amount: 50 })).toBe(0)
+  })
+})
+```
+
+### 3. 场景分析法 (Scenario Analysis)
+基于真实用户场景设计端到端测试用例：
+
+- **正常场景**：标准业务流程（Happy Path）
+- **异常场景**：错误处理和恢复流程
+- **边界场景**：系统极限和约束条件
+- **并发场景**：多用户同时操作
+
+### 4. 状态迁移法 (State Transition Testing)
+针对有状态的系统，测试所有状态转换路径：
+
+```typescript
+// 示例：订单状态机
+describe('Order state transitions', () => {
+  it('pending → paid on successful payment', () => {
+    const order = createOrder()          // pending
+    const paid = processPayment(order)   // → paid
+    expect(paid.status).toBe('paid')
+  })
+  it('pending → cancelled on user cancel', () => {
+    const order = createOrder()          // pending
+    const cancelled = cancelOrder(order) // → cancelled
+    expect(cancelled.status).toBe('cancelled')
+  })
+  it('paid → shipped on dispatch', () => {
+    const order = createPaidOrder()      // paid
+    const shipped = shipOrder(order)     // → shipped
+    expect(shipped.status).toBe('shipped')
+  })
+  it('cannot transition from cancelled to paid', () => {
+    const order = createCancelledOrder()
+    expect(() => processPayment(order)).toThrow()
+  })
+})
+```
+
+### 选择方法的指导原则
+- **简单输入验证** → 等价类划分法
+- **多条件组合逻辑** → 因果图法
+- **用户流程测试** → 场景分析法
+- **有状态系统** → 状态迁移法
+- **复杂功能** → 组合使用多种方法
+
 ## 你必须测试的边界情况
 
 1. **Null/Undefined**：如果输入为 null 怎么办？
