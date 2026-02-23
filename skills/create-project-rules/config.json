@@ -1,0 +1,59 @@
+{
+  "version": "1.0.0",
+  "name": "create-project-rules",
+  "description": "基于项目信息生成项目规则文件，复用 ECC 现有规则模板",
+  "templates_dir": "templates/",
+  "output_dir": ".claude/rules/",
+  "ecc_rules_dir": ".claude/rules/",
+  "supported_languages": [
+    "javascript",
+    "typescript",
+    "python",
+    "go",
+    "java",
+    "rust",
+    "ruby",
+    "php"
+  ],
+  "rule_sections": [
+    "coding-style",
+    "testing",
+    "git-workflow",
+    "security",
+    "performance",
+    "patterns",
+    "hooks",
+    "agents"
+  ],
+  "project_types": [
+    "web-application",
+    "mobile-application",
+    "backend-service",
+    "desktop-application",
+    "library",
+    "cli-tool"
+  ],
+  "tech_stacks": {
+    "javascript": ["React", "Vue", "Angular", "Node.js", "Express", "Next.js"],
+    "typescript": ["React", "Vue", "Angular", "Node.js", "Express", "Next.js", "NestJS"],
+    "python": ["Django", "Flask", "FastAPI", "Pandas", "NumPy"],
+    "go": ["Gin", "Echo", "Fiber", "gRPC"],
+    "java": ["Spring Boot", "Spring MVC", "Hibernate", "Maven", "Gradle"],
+    "rust": ["Actix", "Rocket", "Tokio"],
+    "ruby": ["Rails", "Sinatra"],
+    "php": ["Laravel", "Symfony", "WordPress"]
+  },
+  "architectures": [
+    "monolithic",
+    "microservices",
+    "frontend-backend-separation",
+    "serverless",
+    "event-driven"
+  ],
+  "team_sizes": [
+    "solo",
+    "small-team",
+    "medium-team",
+    "large-team"
+  ]
+}
