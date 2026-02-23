@@ -146,23 +146,44 @@ def cmd_status(args):
         print(f"## {domain.upper()} ({len(domain_instincts)})")
         print()
 
-        for inst in sorted(domain_instincts, key=lambda x: -x.get('confidence', 0.5)):
-            conf = inst.get('confidence', 0.5)
-            conf_bar = '█' * int(conf * 10) + '░' * (10 - int(conf * 10))
-            trigger = inst.get('trigger', 'unknown trigger')
-            source = inst.get('source', 'unknown')
-
-            print(f"  {conf_bar} {int(conf*100):3d}%  {inst.get('id', 'unnamed')}")
-            print(f"            trigger: {trigger}")
-
-            # Extract action from content
-            content = inst.get('content', '')
-            action_match = re.search(r'## Action\s*\n\s*(.+?)(?:\n\n|\n##|$)', content, re.DOTALL)
-            if action_match:
-                action = action_match.group(1).strip().split('\n')[0]
-                print(f"            action: {action[:60]}{'...' if len(action) > 60 else ''}")
-
+        if domain == 'communication':
+            # Use expression table format for communication domain
+            print(f"  | {'类型':6s} | {'你的表达':15s} | {'标准表达':15s} | {'置信度':6s} |")
+            print(f"  |{'-'*8}|{'-'*17}|{'-'*17}|{'-'*8}|")
+            for inst in sorted(domain_instincts, key=lambda x: -x.get('confidence', 0.5)):
+                subtype = inst.get('subtype', 'terminology')
+                subtype_labels = {'terminology': '术语', 'phrasing': '句式', 'project-concept': '项目概念'}
+                type_label = subtype_labels.get(subtype, subtype)
+                conf = inst.get('confidence', 0.5)
+                # Extract expression pair from content
+                content = inst.get('content', '')
+                action_match = re.search(r"Use '(.+?)' instead of '(.+?)'", content)
+                if action_match:
+                    user_term = action_match.group(1)[:15]
+                    standard_term = action_match.group(2)[:15]
+                else:
+                    user_term = inst.get('id', 'unknown').replace('comm-', '')[:15]
+                    standard_term = ''
+                print(f"  | {type_label:6s} | {user_term:15s} | {standard_term:15s} | {int(conf*100):4d}% |")
             print()
+        else:
+            for inst in sorted(domain_instincts, key=lambda x: -x.get('confidence', 0.5)):
+                conf = inst.get('confidence', 0.5)
+                conf_bar = '█' * int(conf * 10) + '░' * (10 - int(conf * 10))
+                trigger = inst.get('trigger', 'unknown trigger')
+                source = inst.get('source', 'unknown')
+
+                print(f"  {conf_bar} {int(conf*100):3d}%  {inst.get('id', 'unnamed')}")
+                print(f"            trigger: {trigger}")
+
+                # Extract action from content
+                content = inst.get('content', '')
+                action_match = re.search(r'## Action\s*\n\s*(.+?)(?:\n\n|\n##|$)', content, re.DOTALL)
+                if action_match:
+                    action = action_match.group(1).strip().split('\n')[0]
+                    print(f"            action: {action[:60]}{'...' if len(action) > 60 else ''}")
+
+                print()
 
     # Observations stats
     if OBSERVATIONS_FILE.exists():

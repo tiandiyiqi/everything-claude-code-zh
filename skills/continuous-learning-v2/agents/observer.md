@@ -63,6 +63,18 @@ run_mode: background
 
 → 创建直觉（instinct）："当需要 X 时，使用工具 Y"
 
+### 5. 沟通模式 (Communication Patterns)
+当用户使用非标准或个人化的表达时：
+- 用户反复使用特定术语代替标准术语
+- 用户纠正 Claude 的措辞（"不要说 X，说 Y"）
+- 用户使用项目特定的缩写或代号
+- 用户的句式偏好（如总是用"帮我..."而非"请..."）
+
+→ 创建直觉：domain: "communication"
+  - trigger: "when user says 'X'"
+  - action: "understand as 'Y', respond using user's preferred term"
+  - subtype: terminology | phrasing | project-concept
+
 ## 输出
 
 在 `~/.claude/homunculus/instincts/personal/` 中创建/更新直觉（instincts）：

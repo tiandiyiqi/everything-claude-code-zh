@@ -281,4 +281,10 @@ v2 完全兼容 v1：
 
 ---
 
+## v3 扩展：沟通风格学习
+
+v2 已扩展支持 `communication` 领域，详见 [continuous-learning-v3](../continuous-learning-v3/SKILL.md)。v3 在 v2 的直觉管道上新增沟通模式检测、表达库视图和 `/learn-style` 命令，实现统一学习管道。
+
+---
+
 *基于直觉的学习：通过每一次观测，教会 Claude 你的模式。*

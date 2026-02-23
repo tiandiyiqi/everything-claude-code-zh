@@ -1,0 +1,15 @@
+{
+  "version": "3.0",
+  "extends": "../continuous-learning-v2/config.json",
+  "communication": {
+    "enabled": true,
+    "expressions_view": "~/.claude/homunculus/views/expressions.md",
+    "project_expressions_dir": ".claude/communication/",
+    "subtypes": ["terminology", "phrasing", "project-concept"],
+    "default_confidence": {
+      "auto_detected": 0.5,
+      "user_explicit": 0.7
+    },
+    "instinct_prefix": "comm-"
+  }
+}

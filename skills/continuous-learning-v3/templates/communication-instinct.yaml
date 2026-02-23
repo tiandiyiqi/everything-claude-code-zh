@@ -1,0 +1,17 @@
+---
+id: prefer-term-{user_term}
+trigger: "when communicating about '{standard_term}'"
+confidence: 0.5
+domain: "communication"
+source: "session-observation"
+subtype: "terminology"
+---
+
+# 术语偏好：{user_term}
+
+## Action
+Use '{user_term}' instead of '{standard_term}' when communicating with user.
+
+## Evidence
+- User used '{user_term}' in session {session_id}
+- Context: "{example_sentence}"

@@ -26,7 +26,8 @@
       "error_resolutions",
       "repeated_workflows",
       "tool_preferences",
-      "file_patterns"
+      "file_patterns",
+      "communication_patterns"
     ]
   },
   "evolution": {
@@ -37,5 +38,11 @@
   "integration": {
     "skill_creator_api": "https://skill-creator.app/api",
     "backward_compatible_v1": true
+  },
+  "communication": {
+    "enabled": true,
+    "expressions_view": "~/.claude/homunculus/views/expressions.md",
+    "project_expressions_dir": ".claude/communication/",
+    "subtypes": ["terminology", "phrasing", "project-concept"]
   }
 }
