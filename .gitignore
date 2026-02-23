@@ -34,3 +34,5 @@ marketing/
 !.claude-plugin/
 
 trae/
+__pycache__/
+*.pyc
