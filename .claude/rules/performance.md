@@ -41,7 +41,8 @@
 ## 构建故障排除（Build Troubleshooting）
 
 如果构建失败：
-1. 使用 **build-error-resolver** 智能体
-2. 分析错误消息
-3. 采用增量方式修复
-4. 每次修复后进行验证
+1. 使用 **build-error-resolver** 智能体（快速最小修复）
+2. 对于复杂或反复出现的错误，使用 **error-diagnostician** 智能体（深度根因分析）
+3. 分析错误消息
+4. 采用增量方式修复
+5. 每次修复后进行验证

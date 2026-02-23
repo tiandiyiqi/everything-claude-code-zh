@@ -12,9 +12,14 @@
 | code-reviewer | 代码审查 | 代码编写/修改后 |
 | security-reviewer | 安全分析 | 提交代码前 |
 | build-error-resolver | 修复构建错误 | 构建失败时 |
+| error-diagnostician | 错误诊断与根因分析 | 复杂错误排查 |
 | e2e-runner | 端到端 (E2E) 测试 | 关键用户流程 |
 | refactor-cleaner | 冗余代码清理 | 代码维护 |
 | doc-updater | 文档更新 | 更新文档 |
+| go-build-resolver | Go 构建错误修复 | Go 构建失败时 |
+| go-reviewer | Go 代码审查 | Go 代码变更后 |
+| python-reviewer | Python 代码审查 | Python 代码变更后 |
+| database-reviewer | 数据库审查 | SQL、Schema、迁移 |
 
 ## 立即调用智能体 (Immediate Agent Usage)
 
