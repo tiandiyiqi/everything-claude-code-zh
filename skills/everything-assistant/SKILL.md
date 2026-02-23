@@ -127,6 +127,12 @@ category: "meta"
 |-------|---------|----------|
 | interactive-discussion | 互动讨论模式、选择题方式 | 需求讨论、方案细化、多维分析 |
 
+#### 发布 (Release)
+
+| Skill | 核心用途 | 触发关键词 |
+|-------|---------|----------|
+| changelog-generator | 自动生成用户友好的变更日志 | 变更日志、发布说明、版本发布、CHANGELOG |
+
 ### Commands（28 个）
 
 | Command | 用途 |

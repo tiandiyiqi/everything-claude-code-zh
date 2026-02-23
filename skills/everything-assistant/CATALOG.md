@@ -76,6 +76,11 @@ strategic-compact → 策略性压缩
 interactive-discussion → 选择题式深度讨论
 ```
 
+### 我要发布新版本
+```
+changelog-generator → 生成变更日志 → 更新 CHANGELOG.md → 创建 GitHub Release
+```
+
 ---
 
 ## 按类型索引
@@ -99,7 +104,7 @@ interactive-discussion → 选择题式深度讨论
 | go-reviewer | Go 审查 | /go-review |
 | python-reviewer | Python 审查 | /python-review |
 
-### Skills（31 个）
+### Skills（32 个）
 
 #### 开发模式
 coding-standards · frontend-patterns · backend-patterns · golang-patterns · python-patterns · django-patterns · springboot-patterns · jpa-patterns · java-coding-standards · project-guidelines-example
@@ -124,6 +129,9 @@ file-memory · iterative-retrieval · strategic-compact
 
 #### 讨论
 interactive-discussion
+
+#### 发布
+changelog-generator
 
 ### Commands（28 个）
 

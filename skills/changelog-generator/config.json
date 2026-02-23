@@ -1,0 +1,126 @@
+{
+  "version": "1.0.0",
+  "description": "变更日志生成器配置文件",
+  "commit_types": {
+    "feat": {
+      "label": "✨ 新功能",
+      "include": true,
+      "user_facing": true,
+      "description": "新增功能或特性"
+    },
+    "fix": {
+      "label": "🐛 修复",
+      "include": true,
+      "user_facing": true,
+      "description": "Bug 修复"
+    },
+    "perf": {
+      "label": "🔧 改进",
+      "include": true,
+      "user_facing": true,
+      "description": "性能优化和改进"
+    },
+    "docs": {
+      "label": "📝 文档",
+      "include": false,
+      "user_facing": false,
+      "description": "文档更新"
+    },
+    "style": {
+      "label": "💄 样式",
+      "include": false,
+      "user_facing": false,
+      "description": "代码格式化、样式调整"
+    },
+    "refactor": {
+      "label": "♻️ 重构",
+      "include": false,
+      "user_facing": false,
+      "description": "代码重构（不影响功能）"
+    },
+    "test": {
+      "label": "✅ 测试",
+      "include": false,
+      "user_facing": false,
+      "description": "测试相关"
+    },
+    "chore": {
+      "label": "🔧 杂项",
+      "include": false,
+      "user_facing": false,
+      "description": "构建过程或辅助工具的变动"
+    },
+    "ci": {
+      "label": "👷 CI",
+      "include": false,
+      "user_facing": false,
+      "description": "CI 配置和脚本"
+    },
+    "build": {
+      "label": "📦 构建",
+      "include": false,
+      "user_facing": false,
+      "description": "构建系统或外部依赖"
+    },
+    "revert": {
+      "label": "⏪ 回退",
+      "include": true,
+      "user_facing": true,
+      "description": "回退之前的提交"
+    }
+  },
+  "special_labels": {
+    "breaking": {
+      "label": "⚠️ 破坏性变更",
+      "priority": 1,
+      "description": "不兼容的 API 变更"
+    },
+    "security": {
+      "label": "🔒 安全",
+      "priority": 2,
+      "description": "安全漏洞修复"
+    }
+  },
+  "category_order": [
+    "breaking",
+    "security",
+    "feat",
+    "perf",
+    "fix",
+    "revert"
+  ],
+  "output_formats": {
+    "default": "markdown",
+    "supported": [
+      "markdown",
+      "github_release",
+      "plain_text"
+    ]
+  },
+  "translation_rules": {
+    "remove_technical_terms": [
+      "API",
+      "SDK",
+      "ORM",
+      "middleware",
+      "refactor",
+      "implement",
+      "optimize",
+      "database query",
+      "cache invalidation",
+      "race condition"
+    ],
+    "user_friendly_replacements": {
+      "add JWT authentication": "新增安全登录功能",
+      "optimize database queries": "提升页面加载速度",
+      "implement WebSocket": "支持实时更新",
+      "fix race condition": "修复数据同步问题",
+      "add Redis cache": "提升响应速度"
+    }
+  },
+  "filtering": {
+    "exclude_scopes": [],
+    "exclude_authors": [],
+    "min_commit_length": 10
+  }
+}

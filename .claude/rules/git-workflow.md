@@ -43,3 +43,55 @@
 4. **提交与推送 (Commit & Push)**
    - 详细的提交信息
    - 遵循约定式提交 (Conventional Commits) 格式
+
+## 发布工作流 (Release Workflow)
+
+### 版本发布流程
+
+1. **准备发布**
+   - 确保所有功能已合并到主分支
+   - 运行完整测试套件
+   - 确保构建通过
+
+2. **生成变更日志**
+   - 使用 **changelog-generator** 技能
+   - 命令：`/changelog` 或 `/changelog v2.4.0..HEAD`
+   - 审查并调整生成的变更日志
+   - 更新 CHANGELOG.md
+
+3. **创建版本标签**
+   ```bash
+   git tag -a v2.5.0 -m "Release v2.5.0"
+   git push origin v2.5.0
+   ```
+
+4. **自动发布**
+   - GitHub Actions 自动触发（.github/workflows/release.yml）
+   - 创建 GitHub Release
+   - 附加变更日志
+
+### 何时使用 changelog-generator
+
+- ✅ 版本发布前
+- ✅ 创建 GitHub Release
+- ✅ 准备产品更新公告
+- ✅ 生成周报/月报
+- ❌ 日常提交（使用标准提交信息即可）
+- ❌ PR 创建（已有 PR 工作流）
+
+### 变更日志最佳实践
+
+1. **提交信息质量**
+   - 使用清晰的 Conventional Commits 格式
+   - 在提交正文中提供上下文
+   - 标记破坏性变更（`BREAKING CHANGE:` 或 `!`）
+
+2. **定期维护**
+   - 每次版本发布时更新 CHANGELOG.md
+   - 审查生成的内容，确保用户友好
+   - 添加迁移指南（如有破坏性变更）
+
+3. **用户视角**
+   - 使用用户能理解的语言
+   - 突出业务价值，而非技术实现
+   - 关注用户能感知到的变化
