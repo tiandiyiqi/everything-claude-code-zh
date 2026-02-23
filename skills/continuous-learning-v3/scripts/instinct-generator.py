@@ -53,8 +53,9 @@ def get_project_name() -> str:
         )
         project_path = result.stdout.strip()
         return os.path.basename(project_path)
-    except:
+    except (subprocess.CalledProcessError, FileNotFoundError, OSError) as e:
         # 回退到当前目录名
+        print(f"Warning: Failed to get git root, using cwd: {e}", file=sys.stderr)
         return os.path.basename(os.getcwd())
 
 
@@ -74,7 +75,8 @@ def get_git_commit() -> str:
             check=True
         )
         return result.stdout.strip()
-    except:
+    except (subprocess.CalledProcessError, FileNotFoundError, OSError) as e:
+        print(f"Warning: Failed to get git commit hash: {e}", file=sys.stderr)
         return 'unknown'
 
 

@@ -141,8 +141,8 @@ def is_grep_read_edit_sequence(tools: List[Dict]) -> Tuple[bool, Optional[Dict]]
             try:
                 input_data = json.loads(read_tool['input']) if isinstance(read_tool['input'], str) else read_tool['input']
                 file_path = input_data.get('file_path')
-            except:
-                pass
+            except (json.JSONDecodeError, KeyError, TypeError, AttributeError) as e:
+                print(f"Warning: Failed to extract file_path from Read tool: {e}", file=sys.stderr)
 
         # 从 Edit 工具获取编辑位置
         function_name = None
@@ -154,8 +154,8 @@ def is_grep_read_edit_sequence(tools: List[Dict]) -> Tuple[bool, Optional[Dict]]
                 func_match = re.search(r'function\s+(\w+)|def\s+(\w+)|(\w+)\s*\(', old_string)
                 if func_match:
                     function_name = next(g for g in func_match.groups() if g)
-            except:
-                pass
+            except (json.JSONDecodeError, KeyError, TypeError, AttributeError) as e:
+                print(f"Warning: Failed to extract function_name from Edit tool: {e}", file=sys.stderr)
 
         if file_path:
             return True, {

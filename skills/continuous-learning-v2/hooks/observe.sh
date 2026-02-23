@@ -57,13 +57,14 @@ if [ -z "$INPUT_JSON" ]; then
 fi
 
 # Parse using python (more reliable than jq for complex JSON)
-PARSED=$(python3 << EOF
+PARSED=$(echo "$INPUT_JSON" | python3 << 'EOF'
 import json
 import sys
 import re
 
 try:
-    data = json.loads('''$INPUT_JSON''')
+    # 从 stdin 读取 JSON，避免注入风险
+    data = json.load(sys.stdin)
 
     # Extract fields - Claude Code hook format
     hook_type = data.get('hook_type', 'unknown')  # PreToolUse or PostToolUse
@@ -116,6 +117,7 @@ try:
 
     print(json.dumps(result))
 except Exception as e:
+    print(json.dumps({'parsed': False, 'error': str(e)}), file=sys.stderr)
     print(json.dumps({'parsed': False, 'error': str(e)}))
 EOF
 )
@@ -132,11 +134,35 @@ fi
 
 # Archive if file too large
 if [ -f "$OBSERVATIONS_FILE" ]; then
-  file_size_mb=$(du -m "$OBSERVATIONS_FILE" 2>/dev/null | cut -f1)
+  # 使用跨平台的方式获取文件大小
+  if command -v stat >/dev/null 2>&1; then
+    # macOS 和 BSD
+    file_size_bytes=$(stat -f%z "$OBSERVATIONS_FILE" 2>/dev/null || stat -c%s "$OBSERVATIONS_FILE" 2>/dev/null)
+  else
+    # 回退到 du
+    file_size_bytes=$(du -b "$OBSERVATIONS_FILE" 2>/dev/null | cut -f1)
+  fi
+
+  file_size_mb=$((${file_size_bytes:-0} / 1024 / 1024))
+
   if [ "${file_size_mb:-0}" -ge "$MAX_FILE_SIZE_MB" ]; then
     archive_dir="${CONFIG_DIR}/observations.archive"
-    mkdir -p "$archive_dir"
-    mv "$OBSERVATIONS_FILE" "$archive_dir/observations-$(date +%Y%m%d-%H%M%S).jsonl"
+
+    # 创建归档目录，失败则退出
+    if ! mkdir -p "$archive_dir"; then
+      echo "Error: Failed to create archive directory: $archive_dir" >&2
+      exit 1
+    fi
+
+    archive_file="$archive_dir/observations-$(date +%Y%m%d-%H%M%S).jsonl"
+
+    # 移动文件，失败则报错
+    if mv "$OBSERVATIONS_FILE" "$archive_file"; then
+      echo "Archived observations to: $archive_file" >&2
+    else
+      echo "Error: Failed to archive observations file" >&2
+      exit 1
+    fi
   fi
 fi
 

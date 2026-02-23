@@ -95,7 +95,8 @@ def apply_confidence_decay(instincts: List[Dict], config: Dict) -> int:
 
         try:
             last_used = datetime.fromisoformat(last_used_str.replace('Z', '+00:00'))
-        except:
+        except (ValueError, AttributeError) as e:
+            print(f"Warning: Invalid last_used timestamp in {instinct_file}: {e}", file=sys.stderr)
             continue
 
         days_unused = (now - last_used).days
