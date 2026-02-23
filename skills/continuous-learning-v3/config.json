@@ -11,5 +11,31 @@
       "user_explicit": 0.7
     },
     "instinct_prefix": "comm-"
+  },
+  "code-navigation": {
+    "enabled": true,
+    "navigation_view": "~/.claude/homunculus/views/code-navigation.md",
+    "project_mappings_dir": ".claude/code-navigation/",
+    "subtypes": ["semantic-mapping"],
+    "default_confidence": {
+      "implicit_confirmation": 0.5,
+      "explicit_open": 0.6,
+      "from_codemap": 0.6
+    },
+    "confidence_growth": {
+      "implicit_confirmation": 0.03,
+      "explicit_open": 0.04,
+      "from_codemap": 0.04
+    },
+    "confidence_decay": {
+      "30_days_unused": -0.1,
+      "60_days_unused": -0.2,
+      "90_days_unused": "stale"
+    },
+    "confidence_max": 0.95,
+    "instinct_prefix": "code-nav-",
+    "max_synonyms_per_mapping": 10,
+    "max_mappings_per_project": 100,
+    "evolve_threshold": 10
   }
 }

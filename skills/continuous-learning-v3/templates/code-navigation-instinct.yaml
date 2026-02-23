@@ -1,0 +1,33 @@
+---
+id: code-nav-{keyword_slug}
+trigger: "when user says '{natural_language}' or similar phrases"
+domain: "code-navigation"
+subtype: "semantic-mapping"
+confidence: 0.5
+source: "session-observation"
+project: "{project_name}"
+---
+
+# 代码导航：{natural_language}
+
+## Action
+Navigate to: {file_path}:{function_name}()
+
+## Context
+- File: {file_path}
+- Function: {function_name}
+- Line: {line_number}
+
+## Synonyms
+- {synonym_1}
+- {synonym_2}
+
+## Evidence
+- User confirmed this mapping on {date}
+- Usage count: {usage_count}
+- Last used: {last_used}
+- Confirmation method: {confirmation_method}
+
+## Metadata
+- Project: {project_name}
+- Codebase version: {git_commit}

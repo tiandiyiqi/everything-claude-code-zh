@@ -32,3 +32,5 @@ examples/sessions/*.tmp
 marketing/
 !.claude/
 !.claude-plugin/
+
+trae/

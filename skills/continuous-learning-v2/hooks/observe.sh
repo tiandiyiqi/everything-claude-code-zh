@@ -60,6 +60,7 @@ fi
 PARSED=$(python3 << EOF
 import json
 import sys
+import re
 
 try:
     data = json.loads('''$INPUT_JSON''')
@@ -70,6 +71,7 @@ try:
     tool_input = data.get('tool_input', data.get('input', {}))
     tool_output = data.get('tool_output', data.get('output', ''))
     session_id = data.get('session_id', 'unknown')
+    user_message = data.get('user_message', '')
 
     # Truncate large inputs/outputs
     if isinstance(tool_input, dict):
@@ -85,14 +87,34 @@ try:
     # Determine event type
     event = 'tool_start' if 'Pre' in hook_type else 'tool_complete'
 
-    print(json.dumps({
+    result = {
         'parsed': True,
         'event': event,
         'tool': tool_name,
         'input': tool_input_str if event == 'tool_start' else None,
         'output': tool_output_str if event == 'tool_complete' else None,
         'session': session_id
-    }))
+    }
+
+    # Code navigation: detect user query intent
+    if user_message and 'Pre' in hook_type:
+        code_search_keywords = [
+            '我想修改', '找到', '查找', '在哪', '哪里', '定位', '搜索',
+            '看看', '检查', '查看', '打开', '编辑', '更改',
+            'find', 'locate', 'where', 'search', 'look for', 'show me',
+            'open', 'edit', 'modify', 'change', 'update'
+        ]
+
+        user_message_lower = user_message.lower()
+        if any(keyword in user_message_lower for keyword in code_search_keywords):
+            result['user_query_event'] = {
+                'event': 'user_query',
+                'query': user_message,
+                'intent': 'code_search',
+                'session': session_id
+            }
+
+    print(json.dumps(result))
 except Exception as e:
     print(json.dumps({'parsed': False, 'error': str(e)}))
 EOF
@@ -139,6 +161,12 @@ if parsed['output']:
 
 with open('$OBSERVATIONS_FILE', 'a') as f:
     f.write(json.dumps(observation) + '\n')
+
+# Write user query event if detected
+if 'user_query_event' in parsed:
+    query_event = parsed['user_query_event']
+    query_event['timestamp'] = '$timestamp'
+    f.write(json.dumps(query_event) + '\n')
 EOF
 
 # Signal observer if running
