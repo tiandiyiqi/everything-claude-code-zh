@@ -107,6 +107,27 @@ description: 重述需求、评估风险并创建分步实施计划。在修改�
 - 如果出现构建错误，使用 `/build-and-fix`
 - 使用 `/code-review` 评审已完成的实施
 
+## 与 File-Memory 的关联
+
+`/plan` 和 `/file-memory` 是互补的两个能力：
+
+| 命令 | 职责 | 输出 |
+|------|------|------|
+| `/plan` | 规划能力 — 生成实施方案 | 方案文本 |
+| `/file-memory` | 持久化能力 — 将方案写入文件 | 三文件系统 |
+
+推荐工作流：
+
+```
+/plan 实现用户通知系统     ← 生成方案
+/file-memory init 通知系统  ← 创建持久化文件
+                            ← 方案自动写入 task_plan.md
+[实施过程]                  ← 持续更新 findings.md / progress.md
+/file-memory archive        ← 完成后归档
+```
+
+当 file-memory 已激活（`.claude/plans/task_plan.md` 存在）时，planner 智能体会自动将方案同步写入三文件。
+
 ## 相关智能体
 
 此命令调用位于以下路径的 `planner` 智能体：

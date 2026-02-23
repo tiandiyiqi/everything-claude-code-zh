@@ -75,9 +75,29 @@
           }
         ],
         "description": "Load previous context and detect package manager on new session"
+      },
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/scripts/hooks/file-memory-init.js\""
+          }
+        ],
+        "description": "Detect active task plans and output 5-Question Reboot prompt"
       }
     ],
     "PostToolUse": [
+      {
+        "matcher": "tool == \"Skill\"",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node -e \"let d='';process.stdin.on('data',c=>d+=c);process.stdin.on('end',()=>{try{const i=JSON.parse(d);const name=i.tool_input?.name||'';const msg='[Hook] 插件提醒: 已使用插件功能'+(name?('：'+name):'')+'。请在回复中补充【插件提醒】。';console.error(msg)}catch(e){console.error('[Hook] 插件提醒: 已使用插件功能。请在回复中补充【插件提醒】。')}console.log(d)})\""
+          }
+        ],
+        "description": "Remind to explicitly disclose plugin usage after Skill tool use"
+      },
       {
         "matcher": "tool == \"Bash\"",
         "hooks": [
@@ -141,6 +161,16 @@
           }
         ],
         "description": "Check for console.log in modified files after each response"
+      },
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/scripts/hooks/file-memory-check.js\""
+          }
+        ],
+        "description": "Check phase completion status in active task plans"
       }
     ],
     "SessionEnd": [
