@@ -96,6 +96,10 @@ alias claude-research='claude --system-prompt "$(cat ~/.claude/contexts/research
 
 我构建了一个执行此操作的持续学习技能：`github.com/affaan-m/everything-claude-code/tree/main/skills/continuous-learning`。
 
+**进阶：Claudeception 技能提取（新增）**
+
+`claudeception` 技能与 continuous-learning-v3 形成松耦合协作：v3 在后台自动观测会话并检测候选知识，claudeception 负责显式提取为完整的、高质量的 SKILL.md 文件。使用 `/claudeception` 命令回顾当前会话的学习成果，或在完成非显而易见的调试、变通方案发现后自动触发。
+
 **为什么使用 Stop 钩子（而不是 UserPromptSubmit）：**
 
 核心设计决策是使用 **Stop 钩子** 而不是 UserPromptSubmit。UserPromptSubmit 在每条消息上运行，会给每个提示词增加延迟。Stop 在会话结束时运行一次 —— 轻量级，不会在会话期间拖慢你的速度。
@@ -357,6 +361,12 @@ alias q='cd ~/Desktop/projects'
 **interactive-discussion** (已增强) - 分阶段互动讨论
 - 支持五阶段工作流的自动阶段切换
 - 每阶段自动调用对应智能体/技能
+
+**claudeception** - 技能提取系统（新增）
+- 从工作会话中提取可重用知识并编码为新技能
+- 6 步提取流程：检查现有技能 → 识别知识 → Web 研究 → 结构化 → 编写描述 → 保存
+- 与 continuous-learning-v3 松耦合协作
+- 自动触发条件：非显而易见的调试、误导性错误修复、变通方案发现
 - 质量门控 (Quality Gates) 确保每阶段完成度
 - 选择题方式进行产品细节探讨
 

@@ -172,6 +172,7 @@ everything-claude-code/
 |   |-- golang-patterns/            # Go 惯用语和最佳实践（新增）
 |   |-- golang-testing/             # Go 测试模式、TDD、基准测试（新增）
 |   |-- parallel-patterns/          # 并行子代理模式（基于 BMAD 框架）（新增）
+|   |-- claudeception/              # 技能提取系统——从会话中提取可重用知识（新增）
 |
 |-- commands/         # 用于快速执行的斜杠命令
 |   |-- tdd.md              # /tdd - 测试驱动开发
