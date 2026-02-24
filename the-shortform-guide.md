@@ -90,6 +90,8 @@
   build-error-resolver.md
   e2e-runner.md
   refactor-cleaner.md
+  business-analyst.md  # 需求分析（新增）
+  product-manager.md   # PRD 生成（新增）
 ```
 
 为每个子智能体配置允许的工具、MCP 和权限，以实现适当的作用域限定。
@@ -111,6 +113,7 @@
   git-workflow.md  # 提交格式，PR 流程
   agents.md        # 何时委派给子智能体
   performance.md   # 模型选择，上下文管理
+  helpers.md       # 标准化操作参考中心（新增）
 ```
 
 **示例规则：**

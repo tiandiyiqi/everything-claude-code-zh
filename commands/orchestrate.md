@@ -1,12 +1,12 @@
 # 编排（Orchestrate）命令
 
-用于复杂任务的顺序智能体（Agent）工作流。
+用于复杂任务的智能体（Agent）工作流，支持顺序、并行和混合模式。
 
 ## 用法
 
 `/orchestrate [workflow-type] [task-description]`
 
-## 工作流类型
+## 顺序工作流类型
 
 ### feature
 完整功能实现工作流：
@@ -30,6 +30,64 @@ architect -> code-reviewer -> tdd-guide
 侧重安全的评审：
 ```
 security-reviewer -> code-reviewer -> architect
+```
+
+## 并行工作流类型
+
+### parallel-review
+多维度并行代码审查（完全独立，无依赖）：
+```
+同时启动：
+├→ code-reviewer（代码质量）
+├→ security-reviewer（安全性）
+└→ architect（架构合理性）
+↓ 合成统一审查报告
+```
+
+### parallel-plan
+复杂功能的多角度并行规划：
+```
+同时启动：
+├→ planner（实施规划）
+├→ architect（架构设计）
+└→ security-reviewer（安全分析）
+↓ 合成综合规划文档
+```
+
+### parallel-diagnose
+复杂问题的多假设并行诊断：
+```
+同时启动：
+├→ error-diagnostician（根因分析）
+├→ build-error-resolver（构建层面排查）
+└→ security-reviewer（安全层面排查）
+↓ 合成诊断报告
+```
+
+## 混合工作流类型
+
+### hybrid-feature
+结合顺序和并行的完整功能开发流程：
+```
+阶段 1（顺序）：planner → 生成实施计划
+                    ↓
+阶段 2（并行）：tdd-guide + architect
+                    ↓
+阶段 3（并行）：code-reviewer + security-reviewer
+                    ↓
+阶段 4（顺序）：合成最终报告
+```
+
+### hybrid-refactor
+安全重构的混合工作流：
+```
+阶段 1（顺序）：architect → 设计重构方案
+                    ↓
+阶段 2（并行）：code-reviewer + security-reviewer（审查方案）
+                    ↓
+阶段 3（顺序）：tdd-guide → 实施重构
+                    ↓
+阶段 4（并行）：code-reviewer + security-reviewer（审查结果）
 ```
 
 ## 执行模式
@@ -133,28 +191,50 @@ RECOMMENDATION
 [SHIP / NEEDS WORK / BLOCKED]
 ```
 
-## 并行执行
+## 并行执行机制
 
-对于独立的检查项，可以并行运行智能体：
+并行工作流通过 `Task` 工具的 `run_in_background=true` 实现：
 
-```markdown
-### Parallel Phase
-同时运行：
-- code-reviewer (质量评审)
-- security-reviewer (安全评审)
-- architect (设计评审)
+1. **写入共享上下文**：将任务描述和相关信息写入 `.claude/plans/parallel-context.md`
+2. **启动并行智能体**：每个智能体读取共享上下文，独立执行
+3. **收集结果**：通过 `TaskOutput` 工具收集各智能体输出
+4. **合成报告**：主上下文将所有输出合并为统一报告
 
-### Merge Results
-将所有输出汇总到单个报告中
+### 分阶段依赖管理
+
+混合工作流中，使用分阶段执行处理依赖：
+
 ```
+阶段 1（并行）：无依赖的任务同时执行
+                    ↓ 等待所有完成
+阶段 2（并行）：依赖阶段 1 结果的任务同时执行
+                    ↓ 等待所有完成
+阶段 3（顺序）：最终合成
+```
+
+### 并行 vs 顺序决策
+
+| 场景 | 推荐 | 原因 |
+|------|------|------|
+| 审查 + 安全检查 | 并行 | 完全独立 |
+| 规划 → 编码 | 顺序 | 编码依赖规划 |
+| 多维度分析 | 并行 | 各维度独立 |
+| 编码 → 测试 | 顺序 | 测试依赖代码 |
+
+详细并行模式参见 `skills/parallel-patterns/SKILL.md`。
 
 ## 参数
 
 $ARGUMENTS:
-- `feature <description>` - 完整功能实现工作流
-- `bugfix <description>` - Bug 修复工作流
-- `refactor <description>` - 重构工作流
-- `security <description>` - 安全评审工作流
+- `feature <description>` - 完整功能实现工作流（顺序）
+- `bugfix <description>` - Bug 修复工作流（顺序）
+- `refactor <description>` - 重构工作流（顺序）
+- `security <description>` - 安全评审工作流（顺序）
+- `parallel-review <description>` - 多维度并行审查
+- `parallel-plan <description>` - 多角度并行规划
+- `parallel-diagnose <description>` - 多假设并行诊断
+- `hybrid-feature <description>` - 混合功能开发（顺序+并行）
+- `hybrid-refactor <description>` - 混合重构（顺序+并行）
 - `custom <agents> <description>` - 自定义智能体序列
 
 ## 自定义工作流示例

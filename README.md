@@ -97,7 +97,7 @@ cp -r everything-claude-code-zh/rules/* ~/.claude/rules/
 /plugin list everything-claude-code-zh@everything-claude-code-zh
 ```
 
-✨ **大功告成！** 你现在可以使用 15+ 个智能体、30+ 个技能和 20+ 个命令了。
+✨ **大功告成！** 你现在可以使用 14 个智能体、37 个技能和 30 个命令了。
 
 ---
 
@@ -156,23 +156,30 @@ everything-claude-code/
 |   |-- e2e-runner.md        # Playwright 端到端（E2E）测试
 |   |-- refactor-cleaner.md  # 死代码清理
 |   |-- doc-updater.md       # 文档同步
-|   |-- go-reviewer.md       # Go 代码审查（新增）
-|   |-- go-build-resolver.md # Go 构建错误修复（新增）
+|   |-- go-reviewer.md       # Go 代码审查
+|   |-- go-build-resolver.md # Go 构建错误修复
+|   |-- python-reviewer.md   # Python 代码审查
+|   |-- database-reviewer.md # 数据库审查
+|   |-- error-diagnostician.md # 错误诊断与根因分析
 |
 |-- skills/           # 工作流定义与领域知识
 |   |-- coding-standards/           # 语言最佳实践
 |   |-- backend-patterns/           # API、数据库、缓存模式
 |   |-- frontend-patterns/          # React、Next.js 模式
+|   |-- business-analyst/           # 需求分析、5 Whys、JTBD、SMART（新增）
+|   |-- product-manager/            # PRD 生成、MoSCoW 排序、用户故事（新增）
+|   |-- interactive-discussion/     # 分阶段互动讨论、选择题方式（已增强）
 |   |-- continuous-learning/        # 从会话中自动提取模式（深度指南）
-|   |-- continuous-learning-v2/     # 基于“直觉（Instinct）”的学习，带有置信度评分
+|   |-- continuous-learning-v2/     # 基于”直觉（Instinct）”的学习，带有置信度评分
 |   |-- iterative-retrieval/        # 为子智能体提供渐进式上下文精炼
 |   |-- strategic-compact/          # 手动压缩建议（深度指南）
 |   |-- tdd-workflow/               # TDD 方法论
 |   |-- security-review/            # 安全检查清单
 |   |-- eval-harness/               # 验证循环评测（深度指南）
 |   |-- verification-loop/          # 持续验证（深度指南）
-|   |-- golang-patterns/            # Go 惯用法与最佳实践（新增）
-|   |-- golang-testing/             # Go 测试模式、TDD、基准测试（新增）
+|   |-- golang-patterns/            # Go 惯用法与最佳实践
+|   |-- golang-testing/             # Go 测试模式、TDD、基准测试
+|   |-- parallel-patterns/          # 并行子智能体模式（基于 BMAD 框架）（新增）
 |
 |-- commands/         # 用于快速执行的斜杠命令
 |   |-- tdd.md              # /tdd - 测试驱动开发
@@ -193,6 +200,7 @@ everything-claude-code/
 |   |-- instinct-import.md  # /instinct-import - 导入直觉（新增）
 |   |-- instinct-export.md  # /instinct-export - 导出直觉（新增）
 |   |-- evolve.md           # /evolve - 将直觉聚类为技能（新增）
+|   |-- workflow.md         # /workflow - 五阶段工作流（需求→设计→开发→测试→部署）（新增）
 |
 |-- rules/            # 必须遵守的指南（需复制到 ~/.claude/rules/）
 |   |-- security.md         # 强制性安全检查
@@ -201,6 +209,7 @@ everything-claude-code/
 |   |-- git-workflow.md     # 提交格式、PR 流程
 |   |-- agents.md           # 何时委派给子智能体
 |   |-- performance.md      # 模型选择、上下文管理
+|   |-- helpers.md          # 标准化操作参考中心（新增）
 |
 |-- hooks/            # 基于触发器的自动化
 |   |-- hooks.json                # 所有钩子配置（PreToolUse, PostToolUse, Stop 等）

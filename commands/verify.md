@@ -33,22 +33,7 @@
 
 ## 输出（Output）
 
-生成一份简洁的验证报告：
-
-```
-VERIFICATION: [PASS/FAIL]
-
-Build:    [OK/FAIL]
-Types:    [OK/X errors]
-Lint:     [OK/X issues]
-Tests:    [X/Y passed, Z% coverage]
-Secrets:  [OK/X found]
-Logs:     [OK/X console.logs]
-
-Ready for PR: [YES/NO]
-```
-
-如果存在任何关键问题，请列出这些问题并给出修复建议。
+参见 helpers.md#验证报告模板
 
 ## 参数（Arguments）
 

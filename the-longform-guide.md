@@ -312,6 +312,56 @@ alias q='cd ~/Desktop/projects'
 
 ---
 
+## 五阶段工作流（新增）
+
+### /workflow 命令 - 项目全生命周期管理
+
+新增 `/workflow` 命令提供了一个完整的五阶段工作流，从需求分析到部署维护：
+
+```
+阶段 1：需求分析 (Requirements Analysis)
+  → 使用 business-analyst 智能体
+  → 5 Whys 根因分析、JTBD 框架、SMART 目标定义
+
+阶段 2：设计 (Design)
+  → 使用 product-manager 智能体 + architect 智能体
+  → PRD 生成、MoSCoW 排列优先级、架构设计
+
+阶段 3：开发 (Development)
+  → 使用 tdd-guide 智能体
+  → 测试驱动开发、代码审查、安全审查
+
+阶段 4：测试 (Testing)
+  → 使用 verification-loop 技能
+  → 构建验证、类型检查、Lint、测试、安全扫描
+
+阶段 5：部署与维护 (Deployment & Maintenance)
+  → 使用 doc-updater 智能体
+  → 文档更新、变更日志生成、发布准备
+```
+
+### 新增技能
+
+**business-analyst** - 需求分析与发现
+- 5 Whys 根因分析
+- Jobs-to-be-Done (JTBD) 用户需求框架
+- SMART 目标定义
+- 产品简报生成
+
+**product-manager** - 产品规划与需求
+- PRD (Product Requirements Document) 生成
+- MoSCoW 优先级排列 (Must/Should/Could/Won't)
+- 用户故事拆解
+- 验收标准定义
+
+**interactive-discussion** (已增强) - 分阶段互动讨论
+- 支持五阶段工作流的自动阶段切换
+- 每阶段自动调用对应智能体/技能
+- 质量门控 (Quality Gates) 确保每阶段完成度
+- 选择题方式进行产品细节探讨
+
+---
+
 ## 里程碑
 
 ![25k+ GitHub Stars](./assets/images/longform/09-25k-stars.png)

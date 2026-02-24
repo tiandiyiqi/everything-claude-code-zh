@@ -48,7 +48,9 @@ description: Use this skill when writing new features, fixing bugs, or refactori
 
 ## TDD 工作流步骤
 
-### 第 1 步：编写用户旅程 (User Journeys)
+参见 helpers.md#通用TDD红绿重构循环
+
+### 详细步骤说明
 ```
 作为 [角色]，我想要 [动作]，以便 [收益]
 

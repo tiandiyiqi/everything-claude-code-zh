@@ -1,7 +1,7 @@
 ---
 name: everything-assistant
 description: Everything Claude Code 智能助手。自动分析用户意图，推荐最匹配的 skill/agent/command。当用户表达困惑、开始新任务、或手动调用 /everything 时激活。
-version: "1.1.0"
+version: "1.2.0"
 category: "meta"
 ---
 
@@ -54,7 +54,7 @@ category: "meta"
 | go-reviewer | Go 代码审查，地道 Go 模式 | Go 审查、并发、错误处理 |
 | python-reviewer | Python 代码审查，PEP 8 合规 | Python 审查、mypy、ruff、类型提示 |
 
-### Skills（32 个）
+### Skills（36 个）
 
 #### 开发模式 (Patterns)
 
@@ -106,6 +106,12 @@ category: "meta"
 | django-verification | Django 验证循环 | 迁移、测试、安全扫描、部署检查 |
 | springboot-verification | Spring Boot 验证循环 | 构建、静态分析、测试、安全扫描 |
 
+#### 并行执行 (Parallel Execution)
+
+| Skill | 核心用途 | 触发关键词 |
+|-------|---------|----------|
+| parallel-patterns | 并行子智能体模式（4 种模式） | 并行、扇形研究、并行审查、混合工作流 |
+
 #### 学习 (Learning)
 
 | Skill | 核心用途 | 触发关键词 |
@@ -128,11 +134,18 @@ category: "meta"
 | iterative-retrieval | 迭代检索、上下文优化 | 分发、评估、优化、循环 |
 | strategic-compact | 策略性上下文压缩 | 压缩建议、阈值检测、逻辑边界 |
 
+#### 需求与产品 (Requirements & Product)
+
+| Skill | 核心用途 | 触发关键词 |
+|-------|---------|----------|
+| business-analyst | 需求分析、5 Whys、JTBD、SMART | 需求调研、产品发现、根因分析、用户画像 |
+| product-manager | PRD 生成、MoSCoW 排序、用户故事 | PRD、需求文档、优先级、验收标准 |
+
 #### 讨论 (Discussion)
 
 | Skill | 核心用途 | 触发关键词 |
 |-------|---------|----------|
-| interactive-discussion | 互动讨论模式、选择题方式 | 需求讨论、方案细化、多维分析 |
+| interactive-discussion | 分阶段互动讨论、选择题方式 | 需求讨论、方案细化、多维分析、工作流 |
 
 #### 发布 (Release)
 
@@ -140,10 +153,13 @@ category: "meta"
 |-------|---------|----------|
 | changelog-generator | 自动生成用户友好的变更日志 | 变更日志、发布说明、版本发布、CHANGELOG |
 
-### Commands（28 个）
+### Commands（30 个）
 
 | Command | 用途 |
 |---------|------|
+| /workflow | 分阶段项目工作流（需求→设计→开发→测试→部署） |
+| /everything | 智能功能推荐（分析上下文，推荐最匹配的功能） |
+| /fireworks-tutorial | 烟花项目新手教程（实践学习 80%+ 功能） |
 | /plan | 创建实施计划（调用 planner agent） |
 | /tdd | 测试驱动开发工作流 |
 | /code-review | 代码审查 |
@@ -153,6 +169,7 @@ category: "meta"
 | /build-fix | 修复构建错误 |
 | /refactor-clean | 冗余代码清理 |
 | /learn | 提取可复用模式 |
+| /learn-style | 手动记录沟通表达偏好 |
 | /evolve | 将直觉演进为技能/命令/智能体 |
 | /instinct-status | 查看已学习的直觉 |
 | /instinct-export | 导出直觉 |
@@ -165,18 +182,20 @@ category: "meta"
 | /update-codemaps | 更新代码图谱 |
 | /update-docs | 更新文档 |
 | /test-coverage | 测试覆盖率报告 |
+| /growth-report | 个人成长报告（工作概览、习得技能、改进建议） |
 | /go-build | Go 构建错误修复 |
 | /go-review | Go 代码审查 |
 | /go-test | Go TDD |
 | /python-review | Python 代码审查 |
 
-### Rules（8 个）
+### Rules（9 个）
 
 | Rule | 核心要点 |
 |------|---------|
 | agents | 智能体编排规则、并行执行、多维度分析 |
 | coding-style | 不可变性、文件组织、错误处理、输入校验 |
 | git-workflow | Conventional Commits、PR 工作流、功能实现流程 |
+| helpers | 标准化操作参考中心（工作流模板、报告格式、检查清单、错误处理协议） |
 | hooks | 钩子系统、文档拦截器、自动格式化 |
 | patterns | API 响应格式、自定义 Hook、仓储模式 |
 | performance | 模型选择策略、上下文窗口管理、Ultrathink |
@@ -193,7 +212,9 @@ category: "meta"
 
 | 用户意图关键词 | 推荐功能 | 优先级 |
 |--------------|---------|-------|
-| 新项目、从零开始、学习项目 | interactive-discussion → create-project-rules → planner | P0 |
+| 新项目、从零开始、完整项目 | /workflow → 分阶段工作流 | P0 |
+| 需求分析、产品发现 | business-analyst skill | P0 |
+| PRD、需求文档、优先级排序 | product-manager skill | P0 |
 | 新功能、实现、开发 | planner agent + /plan + tdd-workflow | P0 |
 | Bug、修复、报错 | error-diagnostician + tdd-guide + /verify | P0 |
 | 重构、清理、优化 | refactor-cleaner + code-reviewer | P1 |
@@ -204,6 +225,7 @@ category: "meta"
 | 学习、模式提取 | continuous-learning-v2 + /learn | P2 |
 | 讨论、需求、方案 | interactive-discussion | P1 |
 | 部署、CI/CD | verification-loop + /verify | P1 |
+| 并行、多维度分析 | parallel-patterns + /orchestrate parallel-review | P1 |
 | 项目初始化、创建规则 | create-project-rules + coding-standards | P1 |
 
 #### 第二层：语言/框架匹配
@@ -231,73 +253,46 @@ category: "meta"
 
 ### 特殊场景：新项目创建
 
-当用户表达"创建新项目"、"从零开始"、"学习项目"时，推荐以下工作流：
+当用户表达"创建新项目"、"从零开始"、"学习项目"时：
 
-#### 阶段 1：需求澄清（必选）
-- **interactive-discussion** — 通过选择题方式讨论：
-  - 技术栈选择（前端/后端/全栈）
-  - 功能范围（MVP vs 完整功能）
-  - 学习目标（学习 ECC vs 学习技术栈）
-  - 时间预算
+**首选方式：** 使用 `/workflow` 命令，自动编排五阶段工作流：
 
-#### 阶段 2：架构确定（必选）
-- 根据讨论结果，推荐对应的 patterns skill：
-  - frontend-patterns（React/Next.js）
-  - backend-patterns（Node.js/Express）
-  - golang-patterns（Go）
-  - django-patterns（Django）
-  - springboot-patterns（Spring Boot）
+```
+/workflow                    — 启动新项目工作流
+/workflow --level 小         — 指定项目规模（小/中/大）
+/workflow --phase 3          — 从指定阶段开始（需求已明确时跳过前两阶段）
+```
 
-#### 阶段 3：项目规则（强烈建议）
-- **create-project-rules** — 生成项目规则文件：
-  - 编码标准（coding-standards）
-  - 测试要求（testing）
-  - Git 工作流（git-workflow）
-  - 安全检查（security）
+`/workflow` 会自动完成以下编排：
 
-#### 阶段 4：规划实施（必选）
-- **planner agent (/plan)** — 创建实施计划：
-  - 拆解任务阶段
-  - 识别依赖关系
-  - 评估风险
-  - 估算复杂度
+| 阶段 | 名称 | 自动调用 | 产出物 |
+|------|------|---------|--------|
+| 1 | 需求分析 | business-analyst skill | Doc/BRIEF-{项目名}.md |
+| 2 | 设计 | product-manager + architect | Doc/PRD-{项目名}.md + Doc/ARCH-{项目名}.md |
+| 3 | 开发 | planner + tdd-guide | Doc/SPRINT-{项目名}.md + 代码 |
+| 4 | 测试 | e2e-runner + tdd-guide | 测试报告 |
+| 5 | 部署维护 | verification-loop | 验证报告 |
 
-#### 阶段 5：测试驱动开发（必选）
-- **tdd-workflow** — 先写测试，再实现：
-  - 单元测试（80%+ 覆盖率）
-  - 集成测试
-  - E2E 测试（关键用户流程）
+每个阶段之间有建议性门禁检查，用户可选择继续、深入或跳过。
 
 **推荐输出示例：**
 
 ```
 【Everything 推荐】新项目创建工作流
-根据你的需求（学习项目 + 从零开始），建议按以下顺序进行：
+根据你的需求（学习项目 + 从零开始），建议使用分阶段工作流：
 
-**第 1 步：需求澄清**
-- interactive-discussion — 通过选择题讨论技术栈、功能范围、学习目标
-- 为什么：避免后期返工，明确项目边界
-
-**第 2 步：确定架构**
-- 根据讨论结果，我会推荐对应的 patterns skill（如 frontend-patterns）
-- 为什么：学习最佳实践，避免常见陷阱
-
-**第 3 步：创建项目规则**
-- create-project-rules — 生成编码标准、测试要求、Git 工作流
-- 为什么：统一团队规范，提高代码质量
-
-**第 4 步：规划实施**
-- planner agent (/plan) — 创建详细的实施计划
-- 为什么：拆解复杂任务，识别风险
-
-**第 5 步：测试驱动开发**
-- tdd-workflow — 先写测试，再实现
-- 为什么：确保代码质量，80%+ 覆盖率
+**推荐方式：** /workflow
+- 自动编排 5 个阶段（需求分析→设计→开发→测试→部署）
+- 每阶段自动调用对应智能体/技能
+- 支持中断恢复（/workflow resume）
+- 根据项目规模自适应文档深度
 
 **快速启动：**
-输入 "开启互动讨论模式" 开始第 1 步
+- 完整流程 → 输入 /workflow
+- 需求已明确，直接规划 → 输入 /workflow --phase 3
+- 小项目快速启动 → 输入 /workflow --level 小
 
-你想从哪一步开始？（如果需求已明确，可以跳过第 1 步）
+你想从哪种方式开始？
 ```
 
 ### 推荐输出格式
@@ -326,14 +321,14 @@ category: "meta"
 根据你的需求（学习项目 + 从零开始 + 可视化时钟），我检索到以下可用的 ECC 功能：
 
 **推荐工作流：**
-1. [P0] interactive-discussion — 先澄清需求细节（通过选择题方式讨论技术栈、功能范围、学习目标）
+1. [P0] /workflow — 分阶段项目工作流（自动编排需求分析→设计→开发→测试→部署）
 2. [P1] create-project-rules — 确定架构后生成项目规则（编码标准、测试要求、Git 工作流）
-3. [P1] planner agent (/plan) — 创建详细的实施计划（拆解任务、评估风险、估算复杂度）
-4. [P1] tdd-workflow — 测试驱动开发（先写测试，确保 80%+ 覆盖率）
+3. [P2] interactive-discussion — 需求不明确时先讨论（通过选择题方式澄清细节）
 
 **快速启动：**
-- 如果你想先讨论需求细节 → 输入 "开启互动讨论模式"
-- 如果需求已明确，直接规划 → 输入 "/plan"
+- 完整流程 → 输入 /workflow
+- 需求已明确，直接规划 → 输入 /workflow --phase 3
+- 先讨论需求细节 → 输入 "开启互动讨论模式"
 
 你想从哪一步开始？
 ```

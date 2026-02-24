@@ -17,52 +17,7 @@ model: opus
 
 ## TDD 工作流 (TDD Workflow)
 
-### 步骤 1：先写测试（红 / RED）
-```typescript
-// 始终从一个失败的测试开始
-describe('searchMarkets', () => {
-  it('returns semantically similar markets', async () => {
-    const results = await searchMarkets('election')
-
-    expect(results).toHaveLength(5)
-    expect(results[0].name).toContain('Trump')
-    expect(results[1].name).toContain('Biden')
-  })
-})
-```
-
-### 步骤 2：运行测试（验证失败 / FAILS）
-```bash
-npm test
-# 测试应当失败 - 因为我们还没有实现功能
-```
-
-### 步骤 3：编写最简实现（绿 / GREEN）
-```typescript
-export async function searchMarkets(query: string) {
-  const embedding = await generateEmbedding(query)
-  const results = await vectorSearch(embedding)
-  return results
-}
-```
-
-### 步骤 4：运行测试（验证通过 / PASSES）
-```bash
-npm test
-# 测试现在应当通过
-```
-
-### 步骤 5：重构（改进 / IMPROVE）
-- 消除重复代码
-- 优化命名
-- 提升性能
-- 增强可读性
-
-### 步骤 6：验证覆盖率
-```bash
-npm run test:coverage
-# 验证覆盖率是否达到 80%+
-```
+参见 helpers.md#通用TDD红绿重构循环
 
 ## 你必须编写的测试类型
 
@@ -194,12 +149,9 @@ jest.mock('@/lib/openai', () => ({
 
 ## 测试用例设计方法论 (Test Case Design Methodology)
 
-在进入 RED 阶段编写测试之前，先运用以下方法论系统化设计测试用例，确保覆盖全面。
+参见 helpers.md#测试用例设计方法
 
-### 测试金字塔比例 (Test Pyramid)
-- **70% 单元测试**：快速、独立、大量覆盖函数和方法
-- **20% 集成测试**：验证组件间协作、API 接口、数据库操作
-- **10% E2E 测试**：覆盖核心用户场景和关键业务流程
+在进入 RED 阶段编写测试之前，先运用以下方法论系统化设计测试用例，确保覆盖全面。详细的等价类划分法、因果图法、场景分析法、状态迁移法示例保留如下：
 
 ### 1. 等价类划分法 (Equivalence Partitioning)
 将输入数据划分为有效和无效等价类，每类取一个代表值：
@@ -299,29 +251,11 @@ describe('Order state transitions', () => {
 
 ## 你必须测试的边界情况
 
-1. **Null/Undefined**：如果输入为 null 怎么办？
-2. **空值（Empty）**：如果数组/字符串为空怎么办？
-3. **无效类型（Invalid Types）**：如果传入了错误类型怎么办？
-4. **边界值（Boundaries）**：最小/最大值
-5. **错误（Errors）**：网络失败、数据库错误
-6. **竞态条件（Race Conditions）**：并发操作
-7. **大数据（Large Data）**：处理 10k+ 条数据时的性能
-8. **特殊字符（Special Characters）**：Unicode、表情符号、SQL 字符
+参见 helpers.md#必须测试的边界情况
 
 ## 测试质量检查清单
 
-在标记测试完成前：
-
-- [ ] 所有公共函数都有单元测试
-- [ ] 所有 API 接口都有集成测试
-- [ ] 关键用户流程有 E2E 测试
-- [ ] 覆盖了边界情况（null、空值、无效输入）
-- [ ] 测试了错误路径（而不只是“开心路径/正常流程”）
-- [ ] 对外部依赖使用了模拟（Mock）
-- [ ] 测试是独立的（无共享状态）
-- [ ] 测试名称描述了被测内容
-- [ ] 断言（Assertions）明确且有意义
-- [ ] 覆盖率达到 80%+（通过覆盖率报告验证）
+参见 helpers.md#测试质量检查清单
 
 ## 测试坏味道（Test Smells / 反模式）
 

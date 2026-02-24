@@ -31,18 +31,52 @@
 
 ## 并行任务执行 (Parallel Task Execution)
 
-对于相互独立的操作，**务必**使用并行任务执行：
+对于相互独立的操作，**务必**使用并行任务执行。
+
+### 并行执行决策矩阵
+
+| 场景 | 推荐 | 原因 |
+|------|------|------|
+| 代码审查 + 安全审查 | ✅ 并行 | 完全独立 |
+| 规划 + 架构设计 | ✅ 并行 | 可独立进行，后续合成 |
+| 多维度分析 | ✅ 并行 | 各维度独立 |
+| 多个独立 Bug 修复 | ✅ 并行 | 触及不同文件 |
+| 规划 → 编码 | ❌ 顺序 | 编码依赖规划结果 |
+| 编码 → 测试 | ❌ 顺序 | 测试依赖实现代码 |
+| 构建修复 → 验证 | ❌ 顺序 | 验证依赖修复结果 |
+
+### 预定义并行工作流
 
 ```markdown
-# 推荐：并行执行
-并行启动 3 个智能体：
-1. 智能体 1：对 auth.ts 进行安全分析
-2. 智能体 2：对缓存系统进行性能审查
-3. 智能体 3：对 utils.ts 进行类型检查
+# parallel-review：多维度并行审查
+同时启动：
+├→ code-reviewer（代码质量）
+├→ security-reviewer（安全性）
+└→ architect（架构合理性）
+↓ 合成统一审查报告
 
-# 避忌：在不必要时采用串行执行
-先启动智能体 1，然后智能体 2，最后智能体 3
+# parallel-plan：多角度并行规划
+同时启动：
+├→ planner（实施规划）
+├→ architect（架构设计）
+└→ security-reviewer（安全分析）
+↓ 合成综合规划文档
+
+# hybrid-feature：混合功能开发
+阶段 1（顺序）：planner → 实施计划
+阶段 2（并行）：tdd-guide + architect
+阶段 3（并行）：code-reviewer + security-reviewer
+阶段 4（顺序）：合成最终报告
 ```
+
+### 并行执行要点
+
+- 通过 `Task` 工具的 `run_in_background=true` 实现
+- 子智能体提示词必须自包含（看不到主对话）
+- 通过文件共享上下文（`.claude/plans/parallel-context.md`）
+- 智能体数量不超过 6 个
+- 详细模式参见 `skills/parallel-patterns/SKILL.md`
+- 协调规范参见 `helpers.md#并行执行协调`
 
 ## 多维度分析 (Multi-Perspective Analysis)
 

@@ -37,14 +37,7 @@ tdd-guide 智能体将：
 
 ## TDD 循环
 
-```
-红 (RED) → 绿 (GREEN) → 重构 (REFACTOR) → 重复 (REPEAT)
-
-红 (RED):      编写一个失败的测试
-绿 (GREEN):    编写最小化代码以通过测试
-重构 (REFACTOR): 改进代码，保持测试通过
-重复 (REPEAT):   下一个功能/场景
-```
+参见 helpers.md#通用TDD红绿重构循环
 
 ## 使用示例
 

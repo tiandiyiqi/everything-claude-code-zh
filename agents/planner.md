@@ -120,14 +120,9 @@ model: opus
 
 ## File-Memory 集成
 
-当 `.claude/plans/task_plan.md` 存在时，planner 的输出应同步写入该文件：
+参见 helpers.md#Planner 智能体协调
 
-### 自动同步规则
-
-1. **检测**：规划开始前，检查 `.claude/plans/` 下是否有活跃的 `task_plan.md`
-2. **写入**：将实施方案的阶段列表写入 `task_plan.md` 的"阶段列表"部分
-3. **决策**：将关键技术决策写入 `task_plan.md` 的"决策记录"表
-4. **风险**：将识别的风险记录到 `findings.md`
+当 `.claude/plans/task_plan.md` 存在时，planner 的输出应同步写入该文件。
 
 ### 输出格式适配
 

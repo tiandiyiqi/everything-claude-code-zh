@@ -171,6 +171,7 @@ everything-claude-code/
 |   |-- verification-loop/          # 持续验证（详细指南）
 |   |-- golang-patterns/            # Go 惯用语和最佳实践（新增）
 |   |-- golang-testing/             # Go 测试模式、TDD、基准测试（新增）
+|   |-- parallel-patterns/          # 并行子代理模式（基于 BMAD 框架）（新增）
 |
 |-- commands/         # 用于快速执行的斜杠命令
 |   |-- tdd.md              # /tdd - 测试驱动开发
@@ -191,6 +192,7 @@ everything-claude-code/
 |   |-- instinct-import.md  # /instinct-import - 导入直觉（新增）
 |   |-- instinct-export.md  # /instinct-export - 导出直觉（新增）
 |   |-- evolve.md           # /evolve - 将直觉聚类到技能中（新增）
+|   |-- workflow.md         # /workflow - 五阶段工作流（需求→设计→开发→测试→部署）（新增）
 |
 |-- rules/            # 始终遵循的指南（复制到 ~/.claude/rules/）
 |   |-- security.md         # 强制性安全检查
@@ -199,6 +201,7 @@ everything-claude-code/
 |   |-- git-workflow.md     # 提交格式、PR 流程
 |   |-- agents.md           # 何时委托给子代理
 |   |-- performance.md      # 模型选择、上下文管理
+|   |-- helpers.md          # 标准化操作参考中心（新增）
 |
 |-- hooks/            # 基于触发器的自动化
 |   |-- hooks.json                # 所有钩子配置（PreToolUse、PostToolUse、Stop 等）
