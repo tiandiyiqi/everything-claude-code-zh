@@ -1,7 +1,7 @@
 ---
 name: architect
 description: 用于系统设计、可扩展性及技术决策的软件架构专家。在规划新功能、重构大型系统或做出架构决策时请主动（PROACTIVELY）使用。
-tools: ["Read", "Grep", "Glob"]
+tools: ["Read", "Write", "Edit", "Grep", "Glob"]
 model: opus
 ---
 

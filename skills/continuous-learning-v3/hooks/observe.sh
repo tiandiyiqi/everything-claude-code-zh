@@ -57,20 +57,22 @@ if [ -z "$INPUT_JSON" ]; then
 fi
 
 # Parse using python (more reliable than jq for complex JSON)
-PARSED=$(echo "$INPUT_JSON" | python3 << 'EOF'
+# 注意：不能用 echo | python3 << 'EOF'，heredoc 会抢占 stdin
+PARSED=$(HOOK_INPUT_JSON="$INPUT_JSON" python3 << 'EOF'
 import json
 import sys
+import os
 import re
 
 try:
-    # 从 stdin 读取 JSON，避免注入风险
-    data = json.load(sys.stdin)
+    # 从环境变量读取 JSON，避免 heredoc 与 pipe 的 stdin 冲突
+    data = json.loads(os.environ['HOOK_INPUT_JSON'])
 
     # Extract fields - Claude Code hook format
-    hook_type = data.get('hook_type', 'unknown')  # PreToolUse or PostToolUse
+    hook_type = data.get('hook_event_name', data.get('hook_type', 'unknown'))  # PreToolUse or PostToolUse
     tool_name = data.get('tool_name', data.get('tool', 'unknown'))
     tool_input = data.get('tool_input', data.get('input', {}))
-    tool_output = data.get('tool_output', data.get('output', ''))
+    tool_output = data.get('tool_response', data.get('tool_output', data.get('output', '')))
     session_id = data.get('session_id', 'unknown')
     user_message = data.get('user_message', '')
 
@@ -169,30 +171,34 @@ fi
 # Build and write observation
 timestamp=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
 
-python3 << EOF
+PARSED_JSON="$PARSED" OBS_TIMESTAMP="$timestamp" OBS_FILE="$OBSERVATIONS_FILE" python3 << 'EOF'
 import json
+import os
 
-parsed = json.loads('''$PARSED''')
+parsed = json.loads(os.environ['PARSED_JSON'])
+timestamp = os.environ['OBS_TIMESTAMP']
+obs_file = os.environ['OBS_FILE']
+
 observation = {
-    'timestamp': '$timestamp',
+    'timestamp': timestamp,
     'event': parsed['event'],
     'tool': parsed['tool'],
     'session': parsed['session']
 }
 
-if parsed['input']:
+if parsed.get('input'):
     observation['input'] = parsed['input']
-if parsed['output']:
+if parsed.get('output'):
     observation['output'] = parsed['output']
 
-with open('$OBSERVATIONS_FILE', 'a') as f:
+with open(obs_file, 'a') as f:
     f.write(json.dumps(observation) + '\n')
 
-# Write user query event if detected
-if 'user_query_event' in parsed:
-    query_event = parsed['user_query_event']
-    query_event['timestamp'] = '$timestamp'
-    f.write(json.dumps(query_event) + '\n')
+    # Write user query event if detected
+    if 'user_query_event' in parsed:
+        query_event = parsed['user_query_event']
+        query_event['timestamp'] = timestamp
+        f.write(json.dumps(query_event) + '\n')
 EOF
 
 # Signal observer if running

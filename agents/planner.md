@@ -1,7 +1,7 @@
 ---
 name: planner
 description: 复杂功能与重构的规划专家。当用户请求功能实现、架构变更或复杂重构时，请“主动（PROACTIVELY）”使用。规划任务时会自动激活。
-tools: ["Read", "Grep", "Glob"]
+tools: ["Read", "Write", "Edit", "Grep", "Glob"]
 model: opus
 ---
 

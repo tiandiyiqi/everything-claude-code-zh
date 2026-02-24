@@ -1,7 +1,7 @@
 ---
 name: error-diagnostician
 description: 系统化错误诊断专家。当遇到运行时错误、性能问题、数据库异常或生产环境故障时主动使用。覆盖 build-error-resolver 不处理的非构建类错误。
-tools: ["Read", "Bash", "Grep", "Glob"]
+tools: ["Read", "Write", "Edit", "Bash", "Grep", "Glob"]
 model: opus
 ---
 
