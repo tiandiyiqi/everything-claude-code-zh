@@ -27,7 +27,8 @@
       "repeated_workflows",
       "tool_preferences",
       "file_patterns",
-      "communication_patterns"
+      "communication_patterns",
+      "skill_extraction_candidates"
     ]
   },
   "evolution": {
@@ -75,5 +76,17 @@
     "max_synonyms_per_mapping": 10,
     "max_mappings_per_project": 100,
     "evolve_threshold": 10
+  },
+  "claudeception": {
+    "enabled": true,
+    "candidates_path": "~/.claude/homunculus/skill-candidates/",
+    "min_signal_strength": 0.6,
+    "auto_remind_threshold": 0.8,
+    "signals": [
+      "error_fix_cycle",
+      "long_investigation",
+      "non_standard_solution",
+      "config_discovery"
+    ]
   }
 }

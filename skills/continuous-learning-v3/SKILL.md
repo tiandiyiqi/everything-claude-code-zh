@@ -1,7 +1,7 @@
 ---
 name: continuous-learning-v3
 description: 统一学习管道——在 v2 直觉架构上新增 communication 领域，支持术语偏好、句式习惯和项目概念的自动学习与表达库视图。
-version: 3.0.0
+version: 3.1.0
 ---
 
 # 持续学习 v3 — 统一学习管道
@@ -100,6 +100,32 @@ views/expressions.md  ← 表达库表格视图（新增）
 |------|------|
 | `/instinct-status` | 显示所有直觉（含 communication 领域的表格视图） |
 | `/evolve` | 聚类直觉（自然支持 communication 领域） |
+
+## Claudeception 协作（松耦合桥接）
+
+v3 的 observer 会自动检测"技能提取候选"信号，并建议用户运行 `/claudeception`。
+
+**分工**：
+
+- v3 负责：自动观测、风格学习、原子化直觉、候选检测
+- Claudeception 负责：显式提取、Web 研究、高质量完整技能
+
+**数据流**：
+
+```text
+v3 observer 检测到候选信号
+  │
+  ▼
+~/.claude/homunculus/skill-candidates/candidate-*.json
+  │
+  ▼
+建议用户运行 /claudeception
+  │
+  ▼
+Claudeception 6 步提取 → .claude/skills/[name]/SKILL.md
+```
+
+**配置**：`config.json` → `claudeception.enabled: true`（默认启用）
 
 ## 文件结构
 

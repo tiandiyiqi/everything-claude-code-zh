@@ -162,6 +162,55 @@ Analysis:
   - confidence: 0.6
   - domain: "workflow"
 
+## 6. Skill Extraction Candidates（Claudeception 桥接）
+
+检测可能值得提取为完整技能的知识模式。当检测到以下信号时，
+创建一个 `skill_extraction_candidate` 标记，建议用户运行 `/claudeception`。
+
+**触发信号**：
+
+1. **错误-修复循环**：同一会话中出现 3+ 次错误后成功修复
+   - 观测序列：`tool_complete(error)` → 多次尝试 → `tool_complete(success)`
+   - 信号强度：尝试次数越多，越值得提取
+
+2. **长时间调查**：对同一问题的工具调用跨度 > 10 次
+   - 观测序列：围绕同一文件/模块的密集 Grep/Read/Edit 操作
+   - 信号强度：调查深度越深，越值得提取
+
+3. **非标准解决方案**：最终修复与初始尝试方向不同
+   - 观测序列：Edit(file_A) → revert → Edit(file_B) → success
+   - 信号强度：方向转变越大，越值得提取
+
+4. **配置发现**：修改配置文件后解决了代码问题
+   - 观测序列：多次 Edit(src/) 失败 → Edit(config) → success
+   - 信号强度：配置与代码的关联越不明显，越值得提取
+
+**输出**：
+
+不创建直觉，而是写入一个候选标记文件：
+
+```text
+~/.claude/homunculus/skill-candidates/
+  └── candidate-{timestamp}.json
+```
+
+```json
+{
+  "timestamp": "2025-01-22T10:30:00Z",
+  "session": "abc123",
+  "signal_type": "error_fix_cycle",
+  "signal_strength": 0.8,
+  "summary": "Prisma 连接池耗尽问题，经过 5 次尝试后通过修改 serverless 配置解决",
+  "relevant_files": ["prisma/schema.prisma", "lib/db.ts"],
+  "suggestion": "建议运行 /claudeception 提取为完整技能"
+}
+```
+
+**置信度阈值**：
+
+- signal_strength ≥ 0.6 时写入候选文件
+- signal_strength ≥ 0.8 时在会话结束时主动提醒用户
+
 ## Integration with Skill Creator
 
 When instincts are imported from Skill Creator (repo analysis), they have:
@@ -169,3 +218,10 @@ When instincts are imported from Skill Creator (repo analysis), they have:
 - `source_repo: "https://github.com/..."`
 
 These should be treated as team/project conventions with higher initial confidence (0.7+).
+
+## Integration with Claudeception
+
+当 `claudeception` 配置启用时，observer 会额外检测技能提取候选。
+这是一个松耦合桥接——observer 只负责检测和建议，实际提取由 Claudeception 技能完成。
+
+配置项：`config.json` → `claudeception.enabled`
