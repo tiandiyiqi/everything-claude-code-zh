@@ -13,7 +13,7 @@ Vercel Agent Browser 是一个专为 AI 智能体设计的无头浏览器自动�
 
 首次使用时自动安装：
 ```bash
-cd .claude/skills/agent-browser
+cd skills/agent-browser
 npm install
 npx agent-browser install  # 下载 Chromium
 ```
