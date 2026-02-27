@@ -1,0 +1,30 @@
+{
+  "name": "agent-browser",
+  "version": "1.0.0",
+  "description": "Vercel Agent Browser - Headless browser automation CLI for AI agents",
+  "type": "module",
+  "bin": {
+    "agent-browser": "./node_modules/.bin/agent-browser"
+  },
+  "files": [
+    "README.md",
+    "SKILL.md"
+  ],
+  "keywords": [
+    "browser",
+    "automation",
+    "e2e",
+    "testing",
+    "ai",
+    "agents",
+    "playwright"
+  ],
+  "author": "Vercel Labs",
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "agent-browser": "^0.15.1"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "name": "agent-browser",
+  "version": "0.15.1",
+  "description": "Vercel Agent Browser - AI 优化的无头浏览器自动化 CLI",
+  "tags": ["browser", "automation", "e2e", "testing", "ai", "playwright"],
+  "keywords": ["headless", "browser", "automation", "e2e", "testing", "web"],
+  "homepage": "https://github.com/vercel-labs/agent-browser",
+  "repository": "https://github.com/vercel-labs/agent-browser"
+}
