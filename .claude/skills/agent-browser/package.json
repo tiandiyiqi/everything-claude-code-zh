@@ -1,6 +1,6 @@
 {
   "name": "agent-browser",
-  "version": "1.0.0",
+  "version": "1.4.0",
   "description": "Vercel Agent Browser - Headless browser automation CLI for AI agents",
   "type": "module",
   "bin": {
