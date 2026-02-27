@@ -1,9 +1,18 @@
 ---
 name: frontend-patterns
-description: 涵盖 React、Next.js、状态管理、性能优化及 UI 最佳实践的前端开发模式（Frontend development patterns）。
+description: 涵盖 React、Next.js、状态管理、性能优化及 UI 最佳实践的前端开发模式（Frontend development patterns）。结合 ui-ux-pro-max 提供全面的前端设计和开发能力。
 ---
 
 # 前端开发模式（Frontend Development Patterns）
+
+> **⚡ 与 ui-ux-pro-max 强关联**
+>
+> 本技能侧重**代码实现模式**，UI/UX 设计指南请使用 **ui-ux-pro-max** 技能。
+>
+> - 设计样式/配色/字体 → 使用 `ui-ux-pro-max`
+> - 代码实现/组件模式 → 使用本技能
+>
+> 安装：`npx skills add nextlevelbuilder/ui-ux-pro-max-skill@ui-ux-pro-max`
 
 适用于 React、Next.js 和高性能用户界面的现代前端开发模式。
 
