@@ -116,8 +116,6 @@ category: "meta"
 
 | Skill | 核心用途 | 触发关键词 |
 |-------|---------|----------|
-| continuous-learning | 会话模式自动提取为技能 | 模式检测、技能提取、学习 |
-| continuous-learning-v2 | 直觉系统、置信度评分、演进 | 直觉、观测、演进、置信度 |
 | continuous-learning-v3 | 统一学习管道、沟通风格学习 | 沟通模式、表达库、学习管道 |
 
 #### 项目初始化 (Project Setup)
@@ -133,6 +131,14 @@ category: "meta"
 | file-memory | 文件持久化记忆（三文件模式） | 任务计划、发现记录、进度日志 |
 | iterative-retrieval | 迭代检索、上下文优化 | 分发、评估、优化、循环 |
 | strategic-compact | 策略性上下文压缩 | 压缩建议、阈值检测、逻辑边界 |
+
+#### Superpowers 工作流
+
+| Skill | 核心用途 | 触发关键词 |
+|-------|---------|----------|
+| superpowers-git-worktree | Git 工作树隔离工作空间 | 工作树、隔离、worktree、分支隔离 |
+| superpowers-finishing-branch | 完成开发分支（4 个选项） | 完成分支、合并、PR、清理工作树 |
+| superpowers-task-planning | 细粒度任务规划（2-5 分钟） | 细粒度、小任务、详细计划、TDD 步骤 |
 
 #### 需求与产品 (Requirements & Product)
 
@@ -216,13 +222,16 @@ category: "meta"
 | 需求分析、产品发现 | business-analyst skill | P0 |
 | PRD、需求文档、优先级排序 | product-manager skill | P0 |
 | 新功能、实现、开发 | planner agent + /plan + tdd-workflow | P0 |
+| 细粒度任务、详细步骤、2-5 分钟 | superpowers-task-planning + /superpowers-plan | P0 |
+| 隔离工作空间、工作树、分支隔离 | superpowers-git-worktree | P0 |
+| 完成分支、合并、PR、清理 | superpowers-finishing-branch + /finish-branch | P0 |
 | Bug、修复、报错 | error-diagnostician + tdd-guide + /verify | P0 |
 | 重构、清理、优化 | refactor-cleaner + code-reviewer | P1 |
 | 安全、认证、授权 | security-reviewer + security-review skill | P0 |
 | 测试、覆盖率 | tdd-workflow + /test-coverage | P1 |
 | 架构、设计、选型 | architect agent + interactive-discussion | P1 |
 | 文档、README | doc-updater agent + /update-docs | P2 |
-| 学习、模式提取 | continuous-learning-v2 + /learn | P2 |
+| 学习、模式提取 | continuous-learning-v3 + claudeception | P2 |
 | 讨论、需求、方案 | interactive-discussion | P1 |
 | 部署、CI/CD | verification-loop + /verify | P1 |
 | 并行、多维度分析 | parallel-patterns + /orchestrate parallel-review | P1 |
@@ -332,43 +341,6 @@ category: "meta"
 
 你想从哪一步开始？
 ```
-
----
-
-## Continuous-Learning 集成
-
-### 直觉增强推荐
-
-当 continuous-learning-v2 系统已积累直觉时，推荐引擎会：
-
-1. 读取 `~/.claude/homunculus/instincts/personal/` 中的直觉文件
-2. 筛选 confidence >= 0.5 的直觉
-3. 将直觉的 domain/trigger 与推荐映射交叉匹配
-4. 高置信度直觉可提升对应功能的推荐优先级（+0.2 权重）
-
-### 示例
-
-如果存在直觉：
-```json
-{
-  "domain": "testing",
-  "trigger": "新功能实现",
-  "confidence": 0.8,
-  "content": "用户偏好先写集成测试再写单元测试"
-}
-```
-
-则推荐输出会调整为：
-```
-【Everything 推荐】（已融合学习直觉）
-根据你的需求和历史偏好，建议使用：
-1. [P0] tdd-workflow — 你偏好先写集成测试，此 skill 支持自定义测试顺序
-...
-```
-
-### 无直觉时的行为
-
-如果 `~/.claude/homunculus/instincts/personal/` 不存在或为空，推荐引擎正常工作，不显示直觉增强标记。
 
 ---
 

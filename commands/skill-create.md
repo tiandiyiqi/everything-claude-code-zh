@@ -14,7 +14,6 @@ allowed_tools: ["Bash", "Read", "Write", "Grep", "Glob"]
 /skill-create                    # 分析当前仓库
 /skill-create --commits 100      # 分析最近 100 条提交
 /skill-create --output ./skills  # 指定自定义输出目录
-/skill-create --instincts        # 同时为 continuous-learning-v2 生成直觉（instincts）
 ```
 
 ## 功能说明（What It Does）
@@ -22,7 +21,6 @@ allowed_tools: ["Bash", "Read", "Write", "Grep", "Glob"]
 1. **解析 Git 历史** - 分析提交（commits）、文件变更和模式。
 2. **检测模式** - 识别循环出现的工作流（Workflow）和约定。
 3. **生成 SKILL.md** - 创建有效的 Claude Code 技能（Skill）文件。
-4. **可选生成直觉（Instincts）** - 用于 continuous-learning-v2 系统。
 
 ## 分析步骤（Analysis Steps）
 
@@ -77,29 +75,6 @@ analyzed_commits: {count}
 
 ## 测试模式
 {检测到的测试约定}
-```
-
-### 第 4 步：生成直觉 (如果使用了 --instincts)
-
-用于 continuous-learning-v2 集成：
-
-```yaml
----
-id: {repo}-commit-convention
-trigger: "when writing a commit message"
-confidence: 0.8
-domain: git
-source: local-repo-analysis
----
-
-# 使用约定式提交 (Conventional Commits)
-
-## 操作 (Action)
-在提交信息前添加前缀：feat:, fix:, chore:, docs:, test:, refactor:
-
-## 证据 (Evidence)
-- 已分析 {n} 条提交
-- {percentage}% 遵循约定式提交格式
 ```
 
 ## 输出示例

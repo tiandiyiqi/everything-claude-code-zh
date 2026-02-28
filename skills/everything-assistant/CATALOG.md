@@ -127,7 +127,7 @@ postgres-patterns · clickhouse-io
 verification-loop · django-verification · springboot-verification
 
 #### 学习
-continuous-learning · continuous-learning-v2 · continuous-learning-v3
+continuous-learning-v3
 
 #### 规划与检索
 file-memory · iterative-retrieval · strategic-compact

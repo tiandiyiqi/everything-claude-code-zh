@@ -161,8 +161,7 @@ everything-claude-code/
 |   |-- coding-standards/           # 语言最佳实践
 |   |-- backend-patterns/           # API、数据库、缓存模式
 |   |-- frontend-patterns/          # React、Next.js 模式
-|   |-- continuous-learning/        # 从会话中自动提取模式（详细指南）
-|   |-- continuous-learning-v2/     # 基于直觉的学习与置信度评分
+|   |-- continuous-learning-v3/     # 统一学习管道、沟通风格学习
 |   |-- iterative-retrieval/        # 子代理的渐进式上下文细化
 |   |-- strategic-compact/          # 手动压缩建议（详细指南）
 |   |-- tdd-workflow/               # TDD 方法论
@@ -275,21 +274,9 @@ everything-claude-code/
 
 两个选项都创建：
 - **SKILL.md 文件** - 可直接用于 Claude Code 的技能
-- **直觉集合** - 用于 continuous-learning-v2
 - **模式提取** - 从你的提交历史中学习
 
-### 🧠 持续学习 v2
-
-基于直觉的学习系统自动学习你的模式：
-
-```bash
-/instinct-status        # 显示带有置信度的学习直觉
-/instinct-import <file> # 从他人导入直觉
-/instinct-export        # 导出你的直觉以供分享
-/evolve                 # 将相关直觉聚类到技能中
-```
-
-完整文档见 `skills/continuous-learning-v2/`。
+完整文档见 `skills/continuous-learning-v3/`。
 
 ---
 

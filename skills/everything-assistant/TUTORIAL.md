@@ -999,22 +999,20 @@ module.exports = {
 
 ---
 
-### 步骤 13：学习管理 (continuous-learning-v2, /learn)
+### 步骤 13：学习管理 (continuous-learning-v3, claudeception)
 
 **目标：** 学习如何提取和管理学习成果
 
 **任务：**
-1. 调用 `/learn`
+1. 调用 `/claudeception`
 2. 提取本项目中学到的模式：
    - Canvas 动画模式
    - 粒子系统设计模式
    - 性能优化技巧
-3. 使用 continuous-learning-v2 保存为直觉（instincts）
-4. 查看 `/instinct-status`
 
-**核心功能：** continuous-learning-v2 技能、/learn 命令
+**核心功能：** continuous-learning-v3 技能、claudeception 命令
 
-**预期产出：** 项目学习直觉库
+**预期产出：** 项目技能库
 
 ---
 

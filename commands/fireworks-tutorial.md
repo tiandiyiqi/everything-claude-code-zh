@@ -36,7 +36,7 @@ description: 启动烟花项目新手教程，在实践中学习 Everything Clau
 | 10 | 文档与 Git | doc-updater, git-workflow |
 | 11 | 验证循环 | verification-loop, /verify |
 | 12 | 新功能编排 | /orchestrate, iterative-retrieval |
-| 13 | 学习管理 | continuous-learning-v2, /learn |
+| 13 | 学习管理 | continuous-learning-v3, claudeception |
 | 14 | 上下文管理 | strategic-compact, file-memory |
 
 ## 参数
